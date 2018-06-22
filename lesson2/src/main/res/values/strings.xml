@@ -4,4 +4,5 @@
     <string name="start_activity3">Start Activity3</string>
     <string name="enter_your_message">Enter your message</string>
     <string name="send">Send</string>
+    <string name="some_text">Enter some text</string>
 </resources>

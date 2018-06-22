@@ -4,18 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
+import android.widget.EditText;
 
 public class Activity2 extends AppCompatActivity {
 
-    private TextView textView;
+    private EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2);
 
-        textView = findViewById(R.id.showText);
+        editText = findViewById(R.id.editText);
     }
 
     @Override
@@ -23,7 +23,15 @@ public class Activity2 extends AppCompatActivity {
         super.onResume();
 
         String data = getIntent().getStringExtra(MainActivity.DATA_STRING);
-        textView.setText(data);
+        editText.setText(data);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra(MainActivity.DATA_STRING, editText.getText().toString());
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     public static Intent newIntent(Context context) {

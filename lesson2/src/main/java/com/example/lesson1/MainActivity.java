@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public void startActivity2(View view) {
         intent = Activity2.newIntent(this)
                 .putExtra(DATA_STRING, textView.getText().toString());
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 
     public void startActivity3(View view) {
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             if (data != null) {
-                String dataString = intent.getStringExtra(DATA_STRING);
+                String dataString = data.getStringExtra(DATA_STRING);
                 textView.setText(dataString);
             }
         }

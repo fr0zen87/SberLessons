@@ -22,7 +22,7 @@ public class MyIntentService extends IntentService {
             broadcastIntent.putExtra(MainActivity.STATE, stateManager.getState());
             sendBroadcast(broadcastIntent);
         } else {
-            while (true) {
+            for (int i = 0; i < 100; i++) {
                 stateManager.changeState();
                 broadcastIntent.putExtra(MainActivity.STATE, stateManager.getState());
                 sendBroadcast(broadcastIntent);

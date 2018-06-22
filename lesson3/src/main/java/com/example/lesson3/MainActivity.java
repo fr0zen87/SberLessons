@@ -7,6 +7,8 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -14,12 +16,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startService(View view) {
-        Intent intent = MyService.newIntent(this);
+        intent = MyService.newIntent(this);
         startService(intent);
     }
 
     public void startSecondActivity(View view) {
-        Intent intent = new Intent(this, SecondActivity.class);
+        intent = SecondActivity.newIntent(this);
         startActivity(intent);
     }
 }

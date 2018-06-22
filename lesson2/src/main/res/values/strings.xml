@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Lesson1</string>
+    <string name="start_activity2">Start Activity2</string>
+    <string name="start_activity3">Start Activity3</string>
+    <string name="enter_your_message">Enter your message</string>
+    <string name="send">Send</string>
 </resources>

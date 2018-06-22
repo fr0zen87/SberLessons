@@ -9,9 +9,9 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE = 1;
+    public static final String DATA_STRING = "data";
 
     private TextView textView;
-
     private Intent intent;
 
     @Override
@@ -23,22 +23,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startActivity2(View view) {
-        intent = new Intent(this, Activity2.class)
-                .putExtra("data", textView.getText().toString());
+        intent = Activity2.newIntent(this)
+                .putExtra(DATA_STRING, textView.getText().toString());
         startActivity(intent);
     }
 
     public void startActivity3(View view) {
-        intent = new Intent(this, Activity3.class);
+        intent = Activity3.newIntent(this);
         startActivityForResult(intent, REQUEST_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            String dataString = intent.getStringExtra("data");
-            textView.setText(dataString);
+            if (data != null) {
+                String dataString = intent.getStringExtra(DATA_STRING);
+                textView.setText(dataString);
+            }
         }
     }
 }

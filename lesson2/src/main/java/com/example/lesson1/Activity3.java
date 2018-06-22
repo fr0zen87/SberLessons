@@ -1,5 +1,6 @@
 package com.example.lesson1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +21,12 @@ public class Activity3 extends AppCompatActivity {
 
     public void send(View view) {
         Intent intent = new Intent()
-                .putExtra("data", editText.getText().toString());
+                .putExtra(MainActivity.DATA_STRING, editText.getText().toString());
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, Activity3.class);
     }
 }

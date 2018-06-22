@@ -1,5 +1,6 @@
 package com.example.lesson3;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +12,9 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +36,7 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        executorService = Executors.newFixedThreadPool(1);
+        executorService = Executors.newFixedThreadPool(2);
     }
 
     @Override
@@ -53,23 +56,33 @@ public class MyService extends Service {
         return new Intent(context, MyService.class);
     }
 
+    @SuppressLint("HandlerLeak")
     private class IncomingHandler extends Handler {
 
         @Override
         public void handleMessage(Message msg) {
-            for (int i = 1; i <= 5; i++) {
-                Date date = new Date();
-                Message message = Message.obtain();
-                Bundle bundle = new Bundle();
-                bundle.putString("date", date.toString());
-                message.setData(bundle);
-                try {
-                    messenger.send(message);
-                    TimeUnit.SECONDS.sleep(5);
-                } catch (RemoteException | InterruptedException e) {
-                    e.printStackTrace();
+
+            final Messenger messenger = msg.replyTo;
+            Runnable job = new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < 5; i++) {
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss", Locale.getDefault());
+                        String dateTime = simpleDateFormat.format(new Date());
+                        Message message = Message.obtain();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(SecondActivity.MESSAGE, dateTime);
+                        message.setData(bundle);
+                        try {
+                            messenger.send(message);
+                            TimeUnit.SECONDS.sleep(5);
+                        } catch (RemoteException | InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
-            }
+            };
+            executorService.execute(job);
         }
     }
 }

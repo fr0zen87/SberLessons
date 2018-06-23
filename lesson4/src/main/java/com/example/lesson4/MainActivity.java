@@ -56,12 +56,12 @@ public class MainActivity extends AppCompatActivity {
             Intent intent;
             switch (v.getId()) {
                 case R.id.startService: {
-                    intent = MyIntentService.newIntent(MainActivity.this)
+                    intent = MyService.newIntent(MainActivity.this)
                             .putExtra(CHANGE, false);
                     startService(intent);
                 }
                 case R.id.changeState: {
-                    intent = MyIntentService.newIntent(MainActivity.this)
+                    intent = MyService.newIntent(MainActivity.this)
                             .putExtra(CHANGE, true);
                     startService(intent);
                 }

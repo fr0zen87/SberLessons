@@ -17,9 +17,7 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".MyIntentService"
-            android:exported="false"></service>
+        <service android:name=".MyService" android:exported="false"/>
     </application>
 
 </manifest>

@@ -29,14 +29,15 @@ public class Fragment1 extends Fragment {
     private MyBroadcastReceiver receiver;
     private IntentFilter intentFilter;
 
+    @Nullable
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment1, container, false);
 
         receiver = new MyBroadcastReceiver();
         intentFilter = new IntentFilter(BROADCAST_ACTION);
 
-        editText = getActivity().findViewById(R.id.editText);
+        editText = view.findViewById(R.id.editText);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -46,7 +47,9 @@ public class Fragment1 extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 TextView textView = getActivity().findViewById(R.id.textView);
-                textView.setText(s);
+                if (textView != null) {
+                    textView.setText(s);
+                }
             }
 
             @Override
@@ -54,12 +57,8 @@ public class Fragment1 extends Fragment {
 
             }
         });
-    }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment1, container, false);
+        return view;
     }
 
     @Override

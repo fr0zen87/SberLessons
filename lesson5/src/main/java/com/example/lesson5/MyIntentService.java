@@ -18,7 +18,7 @@ public class MyIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault());
         String data;
         Intent broadcastIntent = new Intent(Fragment1.BROADCAST_ACTION);
         for (int i = 0; i < 100; i++) {
@@ -26,7 +26,7 @@ public class MyIntentService extends IntentService {
             broadcastIntent.putExtra(Fragment1.BROADCAST_DATA, data);
             sendBroadcast(broadcastIntent);
             try {
-                TimeUnit.SECONDS.sleep(5);
+                TimeUnit.SECONDS.sleep(3);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

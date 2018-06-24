@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="4dp">
 
     <Button
         android:id="@+id/fr2_button1"
@@ -8,7 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Button 1" />
+        android:text="@string/fr2_button_1"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
 
     <Button
         android:id="@+id/fr2_button2"
@@ -16,7 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:text="Button 2" />
+        android:text="@string/fr2_button_2"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
 
     <Button
         android:id="@+id/fr2_button3"
@@ -24,7 +30,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:text="Button 3" />
+        android:text="@string/fr2_button_3"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
 
     <Button
         android:id="@+id/fr2_button4"
@@ -32,14 +40,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="Button 4" />
+        android:text="@string/fr2_button_4"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
 
     <Button
         android:id="@+id/fr2_button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Button 5" />
+        android:text="@string/fr2_button_5"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
 
     <Button
         android:id="@+id/fr2_button6"
@@ -47,7 +59,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/fr2_button5"
         android:layout_centerHorizontal="true"
-        android:text="Button 6" />
+        android:text="@string/fr2_button_6"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
 
     <Button
         android:id="@+id/fr2_button7"
@@ -55,7 +69,9 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toStartOf="@+id/fr2_button5"
-        android:text="Button 7" />
+        android:text="@string/fr2_button_7"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
 
     <Button
         android:id="@+id/fr2_button8"
@@ -63,7 +79,9 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/fr2_button5"
-        android:text="Button 8" />
+        android:text="@string/fr2_button_8"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
 
     <Button
         android:id="@+id/fr2_button9"
@@ -71,5 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/fr2_button5"
         android:layout_centerHorizontal="true"
-        android:text="Button 9" />
+        android:text="@string/fr2_button_9"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
 </RelativeLayout>

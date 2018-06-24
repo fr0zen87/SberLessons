@@ -26,11 +26,11 @@ public class Service3 extends IntentService {
             for (int i = 1; i <= 100; i++) {
                 text = "Iteration: " + i;
                 textButton = random.nextInt(3) + 1;
-                intent.putExtra(Fragment3.TEXT_BUTTON, textButton);
-                intent.putExtra(Fragment3.TEXT_RETURN, text);
+                broadcastIntent.putExtra(Fragment3.TEXT_BUTTON, textButton);
+                broadcastIntent.putExtra(Fragment3.TEXT_RETURN, text);
                 sendBroadcast(broadcastIntent);
                 try {
-                    TimeUnit.SECONDS.sleep(3);
+                    TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

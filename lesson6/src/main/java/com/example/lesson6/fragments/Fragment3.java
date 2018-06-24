@@ -8,13 +8,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.lesson6.R;
-import com.example.lesson6.services.Service1;
+import com.example.lesson6.services.Service3;
 
 public class Fragment3 extends Fragment {
 
@@ -41,6 +43,8 @@ public class Fragment3 extends Fragment {
         receiver3 = new BroadcastReceiver3();
         intentFilter = new IntentFilter(BROADCAST_ACTION_3);
 
+        button2.addTextChangedListener(textWatcher);
+
         return view;
     }
 
@@ -49,18 +53,14 @@ public class Fragment3 extends Fragment {
         super.onResume();
         getActivity().registerReceiver(receiver3, intentFilter);
 
-        startService3();
+        Intent intent = Service3.newIntent(getContext());
+        getActivity().startService(intent);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(receiver3);
-    }
-
-    private void startService3() {
-        Intent intent = Service1.newIntent(getContext());
-        getActivity().startService(intent);
     }
 
     private class BroadcastReceiver3 extends BroadcastReceiver {
@@ -84,4 +84,24 @@ public class Fragment3 extends Fragment {
             }
         }
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            Button button = getActivity().findViewById(R.id.fr2_button5);
+            if (button != null) {
+                button.setText(button2.getText());
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
 }

@@ -49,18 +49,14 @@ public class Fragment1 extends Fragment {
         super.onResume();
         getActivity().registerReceiver(receiver1, intentFilter);
 
-        startService1();
+        Intent intent = Service1.newIntent(getContext());
+        getActivity().startService(intent);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(receiver1);
-    }
-
-    private void startService1() {
-        Intent intent = Service1.newIntent(getContext());
-        getActivity().startService(intent);
     }
 
     private class BroadcastReceiver1 extends BroadcastReceiver {
@@ -70,15 +66,15 @@ public class Fragment1 extends Fragment {
             int colorButton = intent.getIntExtra(COLOR_BUTTON, 1);
             switch (colorButton) {
                 case 1: {
-                    button1.setBackgroundColor(color);
+                    button1.setTextColor(color);
                     break;
                 }
                 case 2: {
-                    button2.setBackgroundColor(color);
+                    button2.setTextColor(color);
                     break;
                 }
                 case 3: {
-                    button3.setBackgroundColor(color);
+                    button3.setTextColor(color);
                     break;
                 }
             }

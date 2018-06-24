@@ -27,11 +27,11 @@ public class Service1 extends IntentService {
             for (int i = 0; i < 100; i++) {
                 color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
                 colorButton = random.nextInt(3) + 1;
-                intent.putExtra(Fragment1.COLOR_RETURN, color);
-                intent.putExtra(Fragment1.COLOR_BUTTON, colorButton);
+                broadcastIntent.putExtra(Fragment1.COLOR_RETURN, color);
+                broadcastIntent.putExtra(Fragment1.COLOR_BUTTON, colorButton);
                 sendBroadcast(broadcastIntent);
                 try {
-                    TimeUnit.SECONDS.sleep(3);
+                    TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

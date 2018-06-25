@@ -10,14 +10,12 @@ import com.example.lesson8.fragments.Fragment3;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FragmentManager fragmentManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.frameLayout1, new Fragment1()).commit();
         fragmentManager.beginTransaction().add(R.id.frameLayout2, new Fragment2()).commit();
         fragmentManager.beginTransaction().add(R.id.frameLayout3, new Fragment3()).commit();

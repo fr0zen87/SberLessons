@@ -16,13 +16,12 @@ import java.util.Random;
 
 public class Fragment2 extends Fragment {
 
-    private View view;
     private TextView textView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment2, container, false);
+        View view = inflater.inflate(R.layout.fragment2, container, false);
 
         textView = view.findViewById(R.id.fr2_textView);
 
@@ -46,7 +45,7 @@ public class Fragment2 extends Fragment {
         @Override
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
-            textView.setText(integer.toString());
+            textView.setText(String.valueOf(integer));
         }
     }
 }

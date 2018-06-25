@@ -33,12 +33,12 @@ public class Fragment1 extends Fragment implements LoaderManager.LoaderCallbacks
     @NonNull
     @Override
     public Loader<Integer> onCreateLoader(int i, @Nullable Bundle bundle) {
-        return new MyLoader(getContext());
+        return new MyLoader(view.getContext());
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Integer> loader, Integer integer) {
-        int color = ContextCompat.getColor(getContext(), integer);
+        int color = ContextCompat.getColor(view.getContext(), integer);
         view.setBackgroundColor(color);
     }
 

@@ -9,7 +9,7 @@ import com.example.lesson8.R;
 
 public class MyLoader extends AsyncTaskLoader<Integer> {
 
-    public MyLoader(@NonNull Context context) {
+    MyLoader(@NonNull Context context) {
         super(context);
     }
 

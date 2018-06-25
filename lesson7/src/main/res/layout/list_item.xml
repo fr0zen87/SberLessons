@@ -49,7 +49,6 @@
         android:layout_height="wrap_content"
         app:barrierDirection="right"
         app:constraint_referenced_ids="image"
-        app:layout_constraintStart_toEndOf="@id/image"
-        tools:layout_editor_absoluteX="411dp" />
+        app:layout_constraintStart_toEndOf="@id/image" />
 
 </android.support.constraint.ConstraintLayout>

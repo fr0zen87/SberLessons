@@ -1,6 +1,7 @@
 package com.example.lesson7;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -38,5 +39,9 @@ public class MyService extends Service {
             }
         }).start();
         return START_NOT_STICKY;
+    }
+
+    public static Intent getIntent(Context context) {
+        return new Intent(context, MyService.class);
     }
 }

@@ -3,6 +3,7 @@ package com.example.lesson7.adapters;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull DataAdapter.ViewHolder holder, int position) {
+        Log.d("DataAdapter", "bind, position = " + position);
         Phone phone = phones.get(position);
         holder.imageView.setImageResource(phone.getImage());
         holder.nameView.setText(phone.getName());
@@ -56,15 +58,11 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         }
     }
 
-    public List<Phone> getPhones() {
-        return phones;
-    }
-
     public void onNewPhones(List<Phone> newPhones) {
-        PhoneDiffUtilCallback callback = new PhoneDiffUtilCallback(this.getPhones(), phones);
+        PhoneDiffUtilCallback callback = new PhoneDiffUtilCallback(phones, newPhones);
         DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
         this.phones.clear();
-        this.phones = newPhones;
+        this.phones.addAll(newPhones);
         result.dispatchUpdatesTo(this);
     }
 }

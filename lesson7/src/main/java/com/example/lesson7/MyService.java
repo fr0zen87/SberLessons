@@ -4,10 +4,13 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import com.example.lesson7.entities.Phone;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class MyService extends Service {
@@ -23,11 +26,13 @@ public class MyService extends Service {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                List<Phone> phones = new ArrayList<>();
                 Phone phone;
                 Intent broadcastIntent = new Intent(MainActivity.BROADCAST_ACTION);
                 for (int i = 1; i <= 20; i++) {
                     phone = new Phone("name " + i, "company " + i, R.drawable.iphone);
-                    broadcastIntent.putExtra(MainActivity.PHONE, phone);
+                    phones.add(phone);
+                    broadcastIntent.putParcelableArrayListExtra(MainActivity.PHONES, (ArrayList<? extends Parcelable>) phones);
                     sendBroadcast(broadcastIntent);
                     try {
                         TimeUnit.SECONDS.sleep(1);

@@ -17,7 +17,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public static final String BROADCAST_ACTION = "com.example.lesson7.MyBroadcastReceiver";
-    public static final String PHONE = "phone";
+    public static final String PHONES = "phones";
 
     private List<Phone> phones = new ArrayList<>();
     private DataAdapter adapter;
@@ -55,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private class MyBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Phone phone = intent.getParcelableExtra(PHONE);
-            phones.add(phone);
+            List<Phone> phones = intent.getParcelableArrayListExtra(PHONES);
             adapter.onNewPhones(phones);
         }
     }

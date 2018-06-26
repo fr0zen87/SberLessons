@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.lesson8.fragments.Fragment1;
-import com.example.lesson8.fragments.Fragment2;
-import com.example.lesson8.fragments.Fragment3;
+import com.example.lesson8.fragments.fragment1.Fragment1;
+import com.example.lesson8.fragments.fragment2.Fragment2;
+import com.example.lesson8.fragments.fragment3.Fragment3;
 
 public class MainActivity extends AppCompatActivity {
 

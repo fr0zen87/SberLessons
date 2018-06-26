@@ -1,4 +1,4 @@
-package com.example.lesson8.fragments;
+package com.example.lesson8.fragments.fragment1;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

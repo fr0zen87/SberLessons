@@ -1,4 +1,4 @@
-package com.example.lesson8.fragments;
+package com.example.lesson8.fragments.fragment2;
 
 import android.os.AsyncTask;
 import android.os.Bundle;

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.lesson8.R;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Fragment2 extends Fragment {
 
@@ -34,11 +35,19 @@ public class Fragment2 extends Fragment {
         new MyTask().execute();
     }
 
-    private class MyTask extends AsyncTask<Void, Void, Integer> {
+    private class MyTask extends AsyncTask<Void, Integer, Integer> {
 
         @Override
         protected Integer doInBackground(Void... voids) {
             Random random = new Random();
+            for (int i = 0; i < 10; i++) {
+                publishProgress(random.nextInt(100));
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             return random.nextInt(100);
         }
 
@@ -46,6 +55,12 @@ public class Fragment2 extends Fragment {
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
             textView.setText(String.valueOf(integer));
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            textView.setText(String.valueOf(values[0]));
         }
     }
 }

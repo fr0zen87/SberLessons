@@ -20,7 +20,7 @@ public class MyLoader3 extends AsyncTaskLoader<Void> {
         for (int i = 1; i <= 10; i++) {
             handler.sendEmptyMessage(i);
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

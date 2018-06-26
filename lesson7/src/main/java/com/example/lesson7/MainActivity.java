@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String PHONE = "phone";
 
     private List<Phone> phones = new ArrayList<>();
-    private RecyclerView recyclerView;
     private DataAdapter adapter;
 
     private MyBroadcastReceiver receiver;
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         receiver = new MyBroadcastReceiver();
         intentFilter = new IntentFilter(BROADCAST_ACTION);
 
-        recyclerView = findViewById(R.id.list);
+        RecyclerView recyclerView = findViewById(R.id.list);
         adapter = new DataAdapter(phones);
         recyclerView.setAdapter(adapter);
     }
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             Phone phone = intent.getParcelableExtra(PHONE);
             phones.add(phone);
-            adapter.notifyDataSetChanged();
+            adapter.onNewPhones(phones);
         }
     }
 }

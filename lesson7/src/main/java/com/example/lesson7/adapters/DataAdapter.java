@@ -1,6 +1,7 @@
 package com.example.lesson7.adapters;
 
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,5 +54,17 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             nameView = view.findViewById(R.id.name);
             companyView = view.findViewById(R.id.company);
         }
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void onNewPhones(List<Phone> newPhones) {
+        PhoneDiffUtilCallback callback = new PhoneDiffUtilCallback(this.getPhones(), phones);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
+        this.phones.clear();
+        this.phones = newPhones;
+        result.dispatchUpdatesTo(this);
     }
 }

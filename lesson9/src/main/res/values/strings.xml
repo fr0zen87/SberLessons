@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Lesson 9</string>
+    <string name="add_note">Add note</string>
+    <string name="enter_note_name">Enter note name</string>
+    <string name="enter_note_content">Enter note content</string>
+    <string name="save">Save</string>
+    <string name="note_image">Note image</string>
 </resources>

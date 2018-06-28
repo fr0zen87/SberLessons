@@ -1,6 +1,7 @@
 package com.example.lesson9;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -41,7 +42,7 @@ public class AddActivity extends AppCompatActivity {
                 DbHelper dbHelper = null;
                 SQLiteDatabase db = null;
                 try {
-                    dbHelper = new DbHelper(view.getContext());
+                    dbHelper = new DbHelper(getBaseContext());
                     db = dbHelper.getWritableDatabase();
 
                     db.beginTransaction();
@@ -56,8 +57,9 @@ public class AddActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             MyNote myNote = new MyNote((int) id, nameText, date, contentText);
-                            getIntent().putExtra(MainActivity.MY_NOTE, myNote);
-                            setResult(RESULT_OK);
+                            Intent intent = new Intent()
+                                    .putExtra(MainActivity.MY_NOTE, myNote);
+                            setResult(RESULT_OK, intent);
                             finish();
                         }
                     });
@@ -73,6 +75,5 @@ public class AddActivity extends AppCompatActivity {
                 }
             }
         }).start();
-        view.findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
     }
 }

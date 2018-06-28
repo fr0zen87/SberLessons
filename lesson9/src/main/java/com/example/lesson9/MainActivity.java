@@ -99,16 +99,15 @@ public class MainActivity extends AppCompatActivity {
                     dbHelper = new DbHelper(getBaseContext());
                     db = dbHelper.getReadableDatabase();
                     cursor = db.query(Note.TABLE_NAME, null, null, null, null, null, null);
-                    Message message = Message.obtain();
-                    Bundle bundle = new Bundle();
-                    MyNote myNote = null;
                     if (cursor.moveToFirst()) {
                         do {
                             int id = cursor.getInt(cursor.getColumnIndex(Note._ID));
                             String name = cursor.getString(cursor.getColumnIndex(Note.COLUMN_NAME));
                             String date = cursor.getString(cursor.getColumnIndex(Note.COLUMN_DATE));
                             String content = cursor.getString(cursor.getColumnIndex(Note.COLUMN_CONTENT));
-                            myNote = new MyNote(id, name, date, content);
+                            MyNote myNote = new MyNote(id, name, date, content);
+                            Message message = Message.obtain();
+                            Bundle bundle = new Bundle();
                             bundle.putParcelable(MY_NOTE, myNote);
                             message.setData(bundle);
                             message.what = INIT_NOTES;

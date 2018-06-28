@@ -1,16 +1,17 @@
 package com.example.lesson9;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
 import com.example.lesson9.databases.DbHelper;
 import com.example.lesson9.entities.MyNote;
-import com.example.lesson9.fragments.EditFragment;
-import com.example.lesson9.fragments.ViewFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,20 +33,15 @@ public class EditActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         myNote = bundle.getParcelable(MainActivity.MY_NOTE);
 
-        ViewFragment viewFragment = new ViewFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment viewFragment = fragmentManager.findFragmentById(R.id.fr_view);
+        Fragment editFragment = fragmentManager.findFragmentById(R.id.fr_edit);
+
         viewFragment.setArguments(bundle);
-        EditFragment editFragment = new EditFragment();
+        editFragment.setArguments(bundle);
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.view_fragment_container, viewFragment)
-                .add(R.id.edit_fragment_container, editFragment)
-                .commit();
-
-        nameEditView = editFragment.getView().findViewById(R.id.fr_name_edit);
-        contentEditView = editFragment.getView().findViewById(R.id.fr_content_edit);
-
-        nameEditView.setText(myNote.getName());
-        contentEditView.setText(myNote.getContent());
+        nameEditView = editFragment.getActivity().findViewById(R.id.fr_name_edit);
+        contentEditView = editFragment.getActivity().findViewById(R.id.fr_content_edit);
     }
 
     public void saveNoteClick(final View view) {
@@ -60,11 +56,14 @@ public class EditActivity extends AppCompatActivity {
                     db = dbHelper.getWritableDatabase();
 
                     db.beginTransaction();
+                    final String name = nameEditView.getText().toString();
+                    final String date = format.format(new Date());
+                    final String content = contentEditView.getText().toString();
                     ContentValues contentValues = new ContentValues();
-                    contentValues.put(Note.COLUMN_NAME, nameEditView.getText().toString());
-                    contentValues.put(Note.COLUMN_DATE, format.format(new Date()));
-                    contentValues.put(Note.COLUMN_CONTENT, contentEditView.getText().toString());
-                    db.update(Note.TABLE_NAME,
+                    contentValues.put(Note.COLUMN_NAME, name);
+                    contentValues.put(Note.COLUMN_DATE, date);
+                    contentValues.put(Note.COLUMN_CONTENT, content);
+                    final long id = db.update(Note.TABLE_NAME,
                             contentValues,
                             Note._ID + " = ?",
                             new String[]{String.valueOf(myNote.getId())});
@@ -73,8 +72,14 @@ public class EditActivity extends AppCompatActivity {
                     view.post(new Runnable() {
                         @Override
                         public void run() {
-                            getIntent().putExtra(MainActivity.MY_NOTE, myNote);
-                            setResult(RESULT_OK);
+                            if (id == 1) {
+                                myNote.setName(name);
+                                myNote.setDate(date);
+                                myNote.setContent(content);
+                            }
+                            Intent intent = new Intent()
+                                    .putExtra(MainActivity.MY_NOTE, myNote);
+                            setResult(RESULT_OK, intent);
                             finish();
                         }
                     });

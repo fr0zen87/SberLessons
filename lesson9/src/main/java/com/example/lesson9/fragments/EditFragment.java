@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.lesson9.MainActivity;
 import com.example.lesson9.R;
+import com.example.lesson9.entities.MyNote;
 
 public class EditFragment extends Fragment {
 
@@ -22,15 +24,28 @@ public class EditFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.edit_fragment, container, false);
+        return inflater.inflate(R.layout.edit_fragment, container, false);
+    }
 
-        nameEditView = view.findViewById(R.id.name_edit);
-        contentEditView = view.findViewById(R.id.content_edit);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        nameEditView = view.findViewById(R.id.fr_name_edit);
+        contentEditView = view.findViewById(R.id.fr_content_edit);
 
         nameEditView.addTextChangedListener(nameTextWatcher);
         contentEditView.addTextChangedListener(contentTextWatcher);
+    }
 
-        return view;
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Bundle bundle = getArguments();
+        MyNote myNote = bundle.getParcelable(MainActivity.MY_NOTE);
+
+        nameEditView.setText(myNote.getName());
+        contentEditView.setText(myNote.getContent());
     }
 
     TextWatcher nameTextWatcher = new TextWatcher() {

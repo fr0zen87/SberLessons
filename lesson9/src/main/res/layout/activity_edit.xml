@@ -13,34 +13,34 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
-    <FrameLayout
-        android:id="@+id/view_fragment_container"
+    <fragment
+        android:id="@+id/fr_view"
+        android:name="com.example.lesson9.fragments.ViewFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/list_item"/>
 
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/edit_fragment_container"
+    <fragment
+        android:id="@+id/fr_edit"
+        android:name="com.example.lesson9.fragments.EditFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline">
-
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        tools:layout="@layout/edit_fragment"/>
 
 </android.support.constraint.ConstraintLayout>

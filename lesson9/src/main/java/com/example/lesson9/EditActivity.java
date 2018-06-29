@@ -1,9 +1,9 @@
 package com.example.lesson9;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +31,9 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
 
         Bundle bundle = getIntent().getExtras();
-        myNote = bundle.getParcelable(MainActivity.MY_NOTE);
+        if (bundle != null) {
+            myNote = bundle.getParcelable(MainActivity.MY_NOTE);
+        }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment viewFragment = fragmentManager.findFragmentById(R.id.fr_view);
@@ -77,9 +79,15 @@ public class EditActivity extends AppCompatActivity {
                                 myNote.setDate(date);
                                 myNote.setContent(content);
                             }
-                            Intent intent = new Intent()
-                                    .putExtra(MainActivity.MY_NOTE, myNote);
-                            setResult(RESULT_OK, intent);
+
+                            Message message = Message.obtain();
+                            message.what = MainActivity.OTHER_NOTE;
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable(MainActivity.MY_NOTE, myNote);
+                            message.setData(bundle);
+                            MainActivity.handler.sendMessage(message);
+
+                            setResult(RESULT_OK);
                             finish();
                         }
                     });

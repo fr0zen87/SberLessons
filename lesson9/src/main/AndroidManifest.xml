@@ -9,15 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:label="Notes application">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".AddActivity" android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".EditActivity"
+            android:label="Edit note"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AddActivity"
+            android:label="Add note"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".PropertiesActivity"
+            android:label="Settings"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

@@ -38,10 +38,12 @@ public class ViewFragment extends Fragment {
         super.onResume();
 
         Bundle bundle = getArguments();
-        MyNote myNote = bundle.getParcelable(MainActivity.MY_NOTE);
+        if (bundle != null) {
+            MyNote myNote = bundle.getParcelable(MainActivity.MY_NOTE);
 
-        nameView.setText(myNote.getName());
-        dateView.setText(myNote.getDate());
-        contentView.setText(myNote.getContent());
+            nameView.setText(myNote.getName());
+            dateView.setText(myNote.getDate());
+            contentView.setText(myNote.getContent());
+        }
     }
 }

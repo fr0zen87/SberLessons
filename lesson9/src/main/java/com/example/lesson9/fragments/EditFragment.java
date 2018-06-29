@@ -42,10 +42,12 @@ public class EditFragment extends Fragment {
         super.onResume();
 
         Bundle bundle = getArguments();
-        MyNote myNote = bundle.getParcelable(MainActivity.MY_NOTE);
+        if (bundle != null) {
+            MyNote myNote = bundle.getParcelable(MainActivity.MY_NOTE);
 
-        nameEditView.setText(myNote.getName());
-        contentEditView.setText(myNote.getContent());
+            nameEditView.setText(myNote.getName());
+            contentEditView.setText(myNote.getContent());
+        }
     }
 
     TextWatcher nameTextWatcher = new TextWatcher() {

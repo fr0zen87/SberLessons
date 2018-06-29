@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lesson9.EditActivity;
 import com.example.lesson9.MainActivity;
@@ -31,7 +32,7 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final MyNote myNote = notes.get(position);
         holder.name.setText(myNote.getName());
         holder.date.setText(myNote.getDate());
@@ -43,6 +44,15 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.ViewHold
                 Intent intent = new Intent(v.getContext(), EditActivity.class);
                 intent.putExtra(MainActivity.MY_NOTE, myNote);
                 v.getContext().startActivity(intent);
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                notes.remove(holder.getAdapterPosition());
+                Toast.makeText(v.getContext(), "Note deleted", Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
     }

@@ -39,7 +39,12 @@ public class Fragment2 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment2, container, false);
+        return inflater.inflate(R.layout.fragment2, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         button1 = view.findViewById(R.id.fr2_button1);
         button2 = view.findViewById(R.id.fr2_button2);
@@ -53,8 +58,6 @@ public class Fragment2 extends Fragment {
 
         receiver2 = new BroadcastReceiver2();
         intentFilter = new IntentFilter(BROADCAST_ACTION_2);
-
-        return view;
     }
 
     @Override

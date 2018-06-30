@@ -1,9 +1,9 @@
 package com.example.lesson9;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -50,7 +50,8 @@ public class EditActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", Locale.getDefault());
+                SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss",
+                        Locale.getDefault());
                 DbHelper dbHelper = null;
                 SQLiteDatabase db = null;
                 try {
@@ -65,7 +66,7 @@ public class EditActivity extends AppCompatActivity {
                     contentValues.put(Note.COLUMN_NAME, name);
                     contentValues.put(Note.COLUMN_DATE, date);
                     contentValues.put(Note.COLUMN_CONTENT, content);
-                    final long id = db.update(Note.TABLE_NAME,
+                    final long rowsUpdated = db.update(Note.TABLE_NAME,
                             contentValues,
                             Note._ID + " = ?",
                             new String[]{String.valueOf(myNote.getId())});
@@ -74,21 +75,16 @@ public class EditActivity extends AppCompatActivity {
                     view.post(new Runnable() {
                         @Override
                         public void run() {
-                            if (id == 1) {
+                            if (rowsUpdated == 1) {
                                 myNote.setName(name);
                                 myNote.setDate(date);
                                 myNote.setContent(content);
+
+                                Intent intent = new Intent()
+                                        .putExtra(MainActivity.MY_NOTE, myNote);
+                                setResult(RESULT_OK, intent);
+                                finish();
                             }
-
-                            Message message = Message.obtain();
-                            message.what = MainActivity.OTHER_NOTE;
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelable(MainActivity.MY_NOTE, myNote);
-                            message.setData(bundle);
-                            MainActivity.handler.sendMessage(message);
-
-                            setResult(RESULT_OK);
-                            finish();
                         }
                     });
                 } catch (Exception e) {

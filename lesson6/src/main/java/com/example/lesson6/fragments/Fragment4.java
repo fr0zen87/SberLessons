@@ -31,15 +31,18 @@ public class Fragment4 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment4, container, false);
+        return inflater.inflate(R.layout.fragment4, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         button1 = view.findViewById(R.id.fr4_button1);
         button2 = view.findViewById(R.id.fr4_button2);
 
         receiver4 = new BroadcastReceiver4();
         intentFilter = new IntentFilter(BROADCAST_ACTION_4);
-
-        return view;
     }
 
     @Override

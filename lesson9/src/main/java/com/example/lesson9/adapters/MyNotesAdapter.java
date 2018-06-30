@@ -1,6 +1,7 @@
 package com.example.lesson9.adapters;
 
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -36,7 +37,7 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.ViewHold
         holder.date.setText(myNote.getDate());
         holder.content.setText(myNote.getContent());
 
-        //initStyles(holder);
+        initStyles(holder);
     }
 
     @Override
@@ -62,11 +63,23 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.ViewHold
         return notes;
     }
 
-    private void initStyles(@NonNull final ViewHolder holder) {
+    private void initStyles(ViewHolder holder) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(holder.itemView.getContext());
-        int textSize = preferences.getInt(holder.itemView.getResources().getString(R.string.text_size), 14);
-        holder.name.setTextSize(textSize);
-        holder.date.setTextSize(textSize);
-        holder.content.setTextSize(textSize);
+        String textSize = preferences.getString("text_size", "14");
+        holder.name.setTextSize(Float.parseFloat(textSize));
+        holder.date.setTextSize(Float.parseFloat(textSize));
+        holder.content.setTextSize(Float.parseFloat(textSize));
+
+        String textStyle = preferences.getString("text_style", "Обычный");
+        int typeFace = Typeface.NORMAL;
+        if (textStyle.contains("Полужирный")) {
+            typeFace += Typeface.BOLD;
+        }
+        if (textStyle.contains("Курсив")) {
+            typeFace += Typeface.ITALIC;
+        }
+        holder.name.setTypeface(null, typeFace);
+        holder.date.setTypeface(null, typeFace);
+        holder.content.setTypeface(null, typeFace);
     }
 }

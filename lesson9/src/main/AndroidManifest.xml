@@ -27,7 +27,7 @@
             android:label="Add note"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".PropertiesActivity"
+            android:name=".SettingsActivity"
             android:label="Settings"
             android:parentActivityName=".MainActivity" />
     </application>

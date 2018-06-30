@@ -8,10 +8,10 @@
         <item>Полужирный+Курсив</item>
     </string-array>
 
-    <integer-array name="text_size">
+    <string-array name="text_size">
         <item>10</item>
         <item>14</item>
         <item>18</item>
-    </integer-array>
+    </string-array>
 
 </resources>

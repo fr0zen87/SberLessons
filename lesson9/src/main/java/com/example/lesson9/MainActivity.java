@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -34,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String MY_NOTE = "myNote";
 
     private List<MyNote> notes = new ArrayList<>();
-    private RecyclerView.Adapter adapter;
+    private RecyclerView recyclerView;
+    private MyNotesAdapter adapter;
 
     private Handler handler;
 
@@ -43,14 +46,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = findViewById(R.id.list);
-        adapter = new MyNotesAdapter(notes);
-        recyclerView.setAdapter(adapter);
-        recyclerView.addOnItemTouchListener(listener);
+        initRecyclerView();
+        initNotes();
 
         handler = new MyHandler();
-
-        initNotes();
     }
 
     @Override
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(this, PropertiesActivity.class);
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
         return true;
     }
@@ -95,6 +94,16 @@ public class MainActivity extends AppCompatActivity {
     public void addNoteClick(View view) {
         Intent intent = new Intent(this, AddActivity.class);
         startActivityForResult(intent, ADD_REQUEST_CODE);
+    }
+
+    private void initRecyclerView() {
+        recyclerView = findViewById(R.id.list);
+        adapter = new MyNotesAdapter(notes);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addOnItemTouchListener(listener);
+        DividerItemDecoration dividerItemDecoration= new DividerItemDecoration(this,
+                LinearLayoutManager.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
     private void initNotes() {
@@ -186,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (view != null && gestureDetector.onTouchEvent(event)) {
                 int pos = rv.getChildAdapterPosition(view);
-                MyNote note = ((MyNotesAdapter) rv.getAdapter()).getNotes().get(pos);
+                MyNote note = adapter.getNotes().get(pos);
                 Intent intent = new Intent(getBaseContext(), EditActivity.class)
                         .putExtra(MY_NOTE, note);
                 startActivityForResult(intent, EDIT_REQUEST_CODE);

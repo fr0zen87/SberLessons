@@ -13,7 +13,7 @@
         android:contentDescription="@string/note_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/note" />
+        app:srcCompat="@drawable/note1" />
 
     <android.support.constraint.Barrier
         android:id="@+id/barrier"

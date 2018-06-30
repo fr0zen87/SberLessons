@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String MY_NOTE = "myNote";
 
     private List<MyNote> notes = new ArrayList<>();
-    private RecyclerView recyclerView;
     private MyNotesAdapter adapter;
 
     private Handler handler;
@@ -97,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        recyclerView = findViewById(R.id.list);
+        RecyclerView recyclerView = findViewById(R.id.list);
         adapter = new MyNotesAdapter(notes);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(listener);

@@ -94,50 +94,10 @@ public class MainActivity extends AppCompatActivity implements MyNotesAdapter.My
         adapter = new MyNotesAdapter();
         adapter.registerCallback(this);
         recyclerView.setAdapter(adapter);
-        //recyclerView.addOnItemTouchListener(listener);
         DividerItemDecoration dividerItemDecoration= new DividerItemDecoration(this,
                 LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
     }
-
-//    private RecyclerView.OnItemTouchListener listener = new RecyclerView.OnItemTouchListener() {
-//
-//        GestureDetector gestureDetector = new GestureDetector(getBaseContext(), new GestureDetector.SimpleOnGestureListener() {
-//            @Override
-//            public boolean onSingleTapUp(MotionEvent motionEvent) {
-//                return true;
-//            }
-//
-//            @Override
-//            public void onLongPress(MotionEvent motionEvent) {
-//                super.onLongPress(motionEvent);
-//            }
-//        });
-//
-//        @Override
-//        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent event) {
-//            View view = rv.findChildViewUnder(event.getX(), event.getY());
-//
-//            if (view != null && gestureDetector.onTouchEvent(event)) {
-//                int pos = rv.getChildAdapterPosition(view);
-//                MyNote note = adapter.getNotes().get(pos);
-//                Intent intent = new Intent(getBaseContext(), EditActivity.class)
-//                        .putExtra(MY_NOTE, note);
-//                startActivityForResult(intent, EDIT_REQUEST_CODE);
-//            }
-//            return false;
-//        }
-//
-//        @Override
-//        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-//
-//        }
-//
-//        @Override
-//        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-//
-//        }
-//    };
 
     @Override
     public void onEditClick(MyNote myNote) {

@@ -15,7 +15,7 @@ import com.example.lesson10.entities.MyNote;
 
 import java.util.List;
 
-public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.ViewHolder> implements View.OnClickListener, View.OnLongClickListener {
+public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.ViewHolder> {
 
     private List<MyNote> mNotes;
 
@@ -35,6 +35,21 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.ViewHold
             holder.content.setText(current.getContent());
 
             initStyles(holder);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myCallback.onEditClick(mNotes.get(holder.getAdapterPosition()));
+                }
+            });
+
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    myCallback.onDeleteClick(mNotes.get(holder.getAdapterPosition()));
+                    return true;
+                }
+            });
         }
     }
 
@@ -82,21 +97,6 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.ViewHold
     public void setNotes(List<MyNote> mNotes) {
         this.mNotes = mNotes;
         notifyDataSetChanged();
-    }
-
-    public List<MyNote> getNotes() {
-        return mNotes;
-    }
-
-    @Override
-    public void onClick(View v) {
-        myCallback.onEditClick(mNotes.get(v.getId()));
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        myCallback.onDeleteClick(mNotes.get(v.getId()));
-        return true;
     }
 
     public interface MyCallback {

@@ -35,7 +35,8 @@
         <provider
             android:name=".provider.MyNotesProvider"
             android:authorities="com.example.lesson10.provider"
-            android:process="com.example.lesson10.provider.newprocess"/>
+            android:process="com.example.lesson10.provider.newprocess"
+            android:exported="true" />
     </application>
 
 </manifest>

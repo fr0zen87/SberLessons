@@ -110,9 +110,10 @@ public class MyNotesProvider extends ContentProvider {
             long id = NotesContract.getNoteId(uri);
             selection = NotesContract.Columns._ID + " = ?";
             selectionArgs = new String[]{String.valueOf(id)};
+            getContext().getContentResolver().notifyChange(uri, null);
+            return db.delete(NotesContract.TABLE_NAME, selection, selectionArgs);
         }
-        getContext().getContentResolver().notifyChange(uri, null);
-        return db.delete(NotesContract.TABLE_NAME, selection, selectionArgs);
+        return 0;
     }
 
     @Override
@@ -128,8 +129,9 @@ public class MyNotesProvider extends ContentProvider {
             long id = NotesContract.getNoteId(uri);
             selection = NotesContract.Columns._ID + " = ?";
             selectionArgs = new String[]{String.valueOf(id)};
+            getContext().getContentResolver().notifyChange(uri, null);
+            return db.update(NotesContract.TABLE_NAME, values, selection, selectionArgs);
         }
-        getContext().getContentResolver().notifyChange(uri, null);
-        return db.update(NotesContract.TABLE_NAME, values, selection, selectionArgs);
+        return 0;
     }
 }

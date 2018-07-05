@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private int projectToUse = 1;
 
     private EditText editText;
+    private Button deleteButton;
+    private Button updateButton;
+    private Button insertButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         editText = findViewById(R.id.editText);
+        deleteButton = findViewById(R.id.delete_button);
+        updateButton = findViewById(R.id.update_button);
+        insertButton = findViewById(R.id.insert_button);
     }
 
     public void idCheckClick(View view) {
@@ -38,10 +45,16 @@ public class MainActivity extends AppCompatActivity {
         if (checkBox.isChecked()) {
             isUseId = true;
             editText.setVisibility(View.VISIBLE);
+            insertButton.setClickable(false);
+            deleteButton.setClickable(true);
+            updateButton.setClickable(true);
         } else {
             isUseId = false;
             editText.setVisibility(View.INVISIBLE);
             editText.setText("");
+            insertButton.setClickable(true);
+            deleteButton.setClickable(false);
+            updateButton.setClickable(false);
         }
     }
 
@@ -51,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.radioButton_lesson9: {
                 projectToUse = 1;
+                break;
             }
             case R.id.radioButton_lesson10: {
                 projectToUse = 2;
@@ -129,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         if (isUseId) {
             String id = editText.getText().toString();
             if (!id.equals("")) {
-                Uri.withAppendedPath(uri, id);
+                uri = Uri.withAppendedPath(uri, id);
             }
         }
         return uri;

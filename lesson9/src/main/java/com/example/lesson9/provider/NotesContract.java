@@ -23,7 +23,7 @@ public class NotesContract {
         }
     }
 
-    static final Uri CONTENT_URI = Uri.withAppendedPath(CONTENT_AUTHORITY_URI, TABLE_NAME);
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(CONTENT_AUTHORITY_URI, TABLE_NAME);
 
     static Uri buildNotesUri(long id) {
         return ContentUris.withAppendedId(CONTENT_URI, id);

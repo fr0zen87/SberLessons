@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lesson9">
 
+    <permission android:name="com.example.lesson9.provider.PERMISSION"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -34,6 +36,8 @@
         <provider
             android:name=".provider.MyNotesProvider"
             android:authorities="com.example.lesson9.provider"
+            android:exported="true"
+            android:permission="com.example.lesson9.provider.PERMISSION"
             android:process="com.example.lesson9.provider.newprocess" />
     </application>
 

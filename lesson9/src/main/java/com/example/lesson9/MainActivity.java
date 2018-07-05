@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -23,6 +22,7 @@ import android.view.View;
 import com.example.lesson9.adapters.MyNotesAdapter;
 import com.example.lesson9.db.DbHelper;
 import com.example.lesson9.entities.MyNote;
+import com.example.lesson9.provider.NotesContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getContentResolver().registerContentObserver(Uri.EMPTY, true, myObserver);
+        getContentResolver().registerContentObserver(NotesContract.CONTENT_URI, true, myObserver);
     }
 
     @Override

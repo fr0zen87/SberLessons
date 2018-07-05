@@ -6,7 +6,6 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,20 +38,22 @@ public class MyNotesProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         final int match = sUriMatcher.match(uri);
-        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor;
         switch(match){
             case NOTES:
-                queryBuilder.setTables(NotesContract.TABLE_NAME);
+                cursor = db.query(NotesContract.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             case NOTES_ID:
-                queryBuilder.setTables(NotesContract.TABLE_NAME);
                 long id = NotesContract.getNoteId(uri);
-                queryBuilder.appendWhere(NotesContract.Columns._ID + " = " + id);
+                selection = NotesContract.Columns._ID + " = ?";
+                selectionArgs = new String[]{String.valueOf(id)};
+                cursor = db.query(NotesContract.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        return queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
+        return cursor;
     }
 
     @Nullable
@@ -98,7 +99,6 @@ public class MyNotesProvider extends ContentProvider {
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
         final int match = sUriMatcher.match(uri);
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String selectionCriteria = "";
 
         if(match != NOTES && match != NOTES_ID) {
             throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -106,16 +106,16 @@ public class MyNotesProvider extends ContentProvider {
 
         if(match == NOTES_ID) {
             long id = NotesContract.getNoteId(uri);
-            selectionCriteria = NotesContract.Columns._ID + " = " + id;
+            selection = NotesContract.Columns._ID + " = ?";
+            selectionArgs = new String[]{String.valueOf(id)};
         }
-        return db.delete(NotesContract.TABLE_NAME, selectionCriteria, selectionArgs);
+        return db.delete(NotesContract.TABLE_NAME, selection, selectionArgs);
     }
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
         final int match = sUriMatcher.match(uri);
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String selectionCriteria = "";
 
         if(match != NOTES && match != NOTES_ID) {
             throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -123,8 +123,9 @@ public class MyNotesProvider extends ContentProvider {
 
         if(match == NOTES_ID) {
             long id = NotesContract.getNoteId(uri);
-            selectionCriteria = NotesContract.Columns._ID + " = " + id;
+            selection = NotesContract.Columns._ID + " = ?";
+            selectionArgs = new String[]{String.valueOf(id)};
         }
-        return db.update(NotesContract.TABLE_NAME, values, selectionCriteria, selectionArgs);
+        return db.update(NotesContract.TABLE_NAME, values, selection, selectionArgs);
     }
 }

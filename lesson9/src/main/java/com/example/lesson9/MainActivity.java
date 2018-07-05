@@ -2,10 +2,13 @@ package com.example.lesson9;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private MyNotesAdapter adapter;
 
     private Handler handler;
+    private MyObserver myObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,19 @@ public class MainActivity extends AppCompatActivity {
         initNotes();
 
         handler = new MyHandler();
+        myObserver = new MyObserver(new Handler(Looper.getMainLooper()));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getContentResolver().registerContentObserver(Uri.EMPTY, true, myObserver);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        getContentResolver().unregisterContentObserver(myObserver);
     }
 
     @Override
@@ -212,4 +229,17 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    private class MyObserver extends ContentObserver {
+
+        public MyObserver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            adapter.notifyDataSetChanged();
+        }
+    }
 }

@@ -33,7 +33,8 @@
 
         <provider
             android:name=".provider.MyNotesProvider"
-            android:authorities="com.example.lesson9.provider" />
+            android:authorities="com.example.lesson9.provider"
+            android:process="com.example.lesson9.provider.newprocess" />
     </application>
 
 </manifest>

@@ -8,14 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.lesson9.databases.DbHelper;
+import com.example.lesson9.db.DbHelper;
 import com.example.lesson9.entities.MyNote;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.example.lesson9.databases.NoteContract.Note;
+import static com.example.lesson9.db.NoteContract.Note;
 
 public class AddActivity extends AppCompatActivity {
 

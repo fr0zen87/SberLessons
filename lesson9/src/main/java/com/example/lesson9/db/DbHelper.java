@@ -1,10 +1,10 @@
-package com.example.lesson9.databases;
+package com.example.lesson9.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.example.lesson9.databases.NoteContract.*;
+import static com.example.lesson9.db.NoteContract.*;
 
 public class DbHelper extends SQLiteOpenHelper {
 

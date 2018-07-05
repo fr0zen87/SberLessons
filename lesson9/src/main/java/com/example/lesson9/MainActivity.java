@@ -18,13 +18,13 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.lesson9.adapters.MyNotesAdapter;
-import com.example.lesson9.databases.DbHelper;
+import com.example.lesson9.db.DbHelper;
 import com.example.lesson9.entities.MyNote;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.lesson9.databases.NoteContract.Note;
+import static com.example.lesson9.db.NoteContract.Note;
 
 public class MainActivity extends AppCompatActivity {
 

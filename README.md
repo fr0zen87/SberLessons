@@ -22,7 +22,8 @@
 [link to code](https://github.com/fr0zen87/SberLessons/tree/master/lesson10)  
 :small_blue_diamond: **Meet 11**, *date: 02.07.2018* - AIDL.
 [link to code](https://github.com/fr0zen87/SberLessons/tree/master/lesson11)  
-:small_orange_diamond: **Meet 12**, *date: 04.07.2018* - ContentProvider.  
+:small_orange_diamond: **Meet 12**, *date: 04.07.2018* - ContentProvider.
+[link to code](https://github.com/fr0zen87/SberLessons/tree/master/lesson12)  
 :small_blue_diamond: **Meet 13**, *date: 06.07.2018* - Работа с сетью (Retrofit, HttpUrlConnector, GSON, Jackson).  
 :small_orange_diamond: **Meet 14**, *date: 09.07.2018* - MVP, MVVM, DataBinding.  
 :small_blue_diamond: **Meet 15**, *date: 11.07.2018* - Clean architecture.  

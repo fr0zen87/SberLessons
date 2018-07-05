@@ -3,6 +3,7 @@
     package="com.example.lesson12">
 
     <uses-permission android:name="com.example.lesson9.provider.PERMISSION"/>
+    <uses-permission android:name="com.example.lesson10.provider.PERMISSION"/>
 
     <application
         android:allowBackup="true"

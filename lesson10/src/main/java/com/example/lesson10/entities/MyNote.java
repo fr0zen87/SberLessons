@@ -25,7 +25,7 @@ public class MyNote implements Parcelable {
     }
 
     protected MyNote(Parcel in) {
-        id = in.readInt();
+        id = in.readLong();
         name = in.readString();
         date = in.readString();
         content = in.readString();

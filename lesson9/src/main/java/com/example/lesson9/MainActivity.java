@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<MyNote> notes = new ArrayList<>();
     private MyNotesAdapter adapter;
+    private int position;
 
     private Handler handler;
     private MyObserver myObserver;
@@ -187,8 +188,8 @@ public class MainActivity extends AppCompatActivity {
                     Bundle bundle = msg.getData();
                     MyNote myNote = bundle.getParcelable(MY_NOTE);
                     if (myNote != null) {
-                        notes.set(myNote.getId() - 1, myNote);
-                        adapter.notifyItemChanged(myNote.getId() - 1);
+                        notes.set(position, myNote);
+                        adapter.notifyItemChanged(position);
                     }
                     break;
                 }
@@ -210,8 +211,8 @@ public class MainActivity extends AppCompatActivity {
             View view = rv.findChildViewUnder(event.getX(), event.getY());
 
             if (view != null && gestureDetector.onTouchEvent(event)) {
-                int pos = rv.getChildAdapterPosition(view);
-                MyNote note = adapter.getNotes().get(pos);
+                position = rv.getChildAdapterPosition(view);
+                MyNote note = adapter.getNotes().get(position);
                 Intent intent = new Intent(getBaseContext(), EditActivity.class)
                         .putExtra(MY_NOTE, note);
                 startActivityForResult(intent, EDIT_REQUEST_CODE);

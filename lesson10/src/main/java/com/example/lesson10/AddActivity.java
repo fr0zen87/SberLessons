@@ -37,7 +37,7 @@ public class AddActivity extends AppCompatActivity {
                     SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault());
                     String name = mNameEditText.getText().toString();
                     String date = format.format(new Date());
-                    String content = mNameEditText.getText().toString();
+                    String content = mContentEditText.getText().toString();
                     MyNote myNote = new MyNote(name, date, content);
                     replyIntent.putExtra(MainActivity.MY_NOTE, myNote);
                     setResult(RESULT_OK, replyIntent);

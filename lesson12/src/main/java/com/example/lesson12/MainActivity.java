@@ -127,7 +127,8 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder data = new StringBuilder();
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                data.append("id = ").append(cursor.getInt(cursor.getColumnIndex("_id")));
+                data.append("id = ").append(projectToUse == 1 ? cursor.getInt(cursor.getColumnIndex("_id")) :
+                        cursor.getLong(cursor.getColumnIndex("id")));
                 data.append(", name = ").append(cursor.getString(cursor.getColumnIndex("name")));
                 data.append(", date = ").append(cursor.getString(cursor.getColumnIndex("date")));
                 data.append(", content = ").append(cursor.getString(cursor.getColumnIndex("content")));

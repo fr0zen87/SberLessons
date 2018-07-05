@@ -53,7 +53,7 @@ public class MyNotesProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
-        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+        cursor.setNotificationUri(getContext().getContentResolver(), NotesContract.CONTENT_URI);
         return cursor;
     }
 
@@ -93,7 +93,7 @@ public class MyNotesProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Unknown URI: "+ uri);
         }
-        getContext().getContentResolver().notifyChange(uri, null);
+        getContext().getContentResolver().notifyChange(NotesContract.CONTENT_URI, null);
         return returnUri;
     }
 
@@ -110,7 +110,7 @@ public class MyNotesProvider extends ContentProvider {
             long id = NotesContract.getNoteId(uri);
             selection = NotesContract.Columns._ID + " = ?";
             selectionArgs = new String[]{String.valueOf(id)};
-            getContext().getContentResolver().notifyChange(uri, null);
+            getContext().getContentResolver().notifyChange(NotesContract.CONTENT_URI, null);
             return db.delete(NotesContract.TABLE_NAME, selection, selectionArgs);
         }
         return 0;
@@ -129,7 +129,7 @@ public class MyNotesProvider extends ContentProvider {
             long id = NotesContract.getNoteId(uri);
             selection = NotesContract.Columns._ID + " = ?";
             selectionArgs = new String[]{String.valueOf(id)};
-            getContext().getContentResolver().notifyChange(uri, null);
+            getContext().getContentResolver().notifyChange(NotesContract.CONTENT_URI, null);
             return db.update(NotesContract.TABLE_NAME, values, selection, selectionArgs);
         }
         return 0;

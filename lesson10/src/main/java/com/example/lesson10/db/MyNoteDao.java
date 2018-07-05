@@ -23,9 +23,6 @@ public interface MyNoteDao {
     @Delete
     void delete(MyNote myNote);
 
-    @Query("DELETE FROM notes")
-    void deleteAll();
-
     @Query("SELECT * FROM notes")
     LiveData<List<MyNote>> getNotes();
 }

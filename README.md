@@ -23,3 +23,15 @@
 :small_blue_diamond: **Meet 11**, *date: 02.07.2018* - AIDL.
 [link to code](https://github.com/fr0zen87/SberLessons/tree/master/lesson11)  
 :small_orange_diamond: **Meet 12**, *date: 04.07.2018* - ContentProvider.  
+:small_blue_diamond: **Meet 13**, *date: 06.07.2018* - Работа с сетью (Retrofit, HttpUrlConnector, GSON, Jackson).  
+:small_orange_diamond: **Meet 14**, *date: 09.07.2018* - MVP, MVVM, DataBinding.  
+:small_blue_diamond: **Meet 15**, *date: 11.07.2018* - Clean architecture.  
+:small_orange_diamond: **Meet 16**, *date: 13.07.2018* - Unit Test (JUnit, robolectric, mockito).  
+:small_blue_diamond: **Meet 17**, *date: 16.07.2018* - Espresso.  
+:small_orange_diamond: **Meet 18**, *date: 18.07.2018* - Загрузка изображений (Picasso, Glide, Fresco).  
+:small_blue_diamond: **Meet 19**, *date: 20.07.2018* - Dagger 2.  
+:small_orange_diamond: **Meet 20**, *date: 23.07.2018* - RxJava 2.  
+:small_blue_diamond: **Meet 21**, *date: 25.07.2018* - Material Design.  
+:small_orange_diamond: **Meet 22**, *date: 27.07.2018* - Custom view.  
+:small_blue_diamond: **Meet 23**, *date: 30.07.2018* - Custom groupView.  
+:small_orange_diamond: **Meet 24**, *date: 01.08.2018* - Анимация.  

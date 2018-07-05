@@ -108,7 +108,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectRequest(Uri requestUri, ContentResolver contentResolver, TextView textView) {
-        Cursor cursor = contentResolver.query(requestUri, null, null, null, null);
+        String[] projection = {"_id", "name", "date", "content"};
+        Cursor cursor = contentResolver.query(requestUri, projection, null, null, null);
         StringBuilder data = new StringBuilder();
         if (cursor != null) {
             while (cursor.moveToNext()) {

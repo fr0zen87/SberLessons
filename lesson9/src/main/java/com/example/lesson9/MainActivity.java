@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler handler;
     private MyObserver myObserver;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 case EDIT_REQUEST_CODE: {
                     MyNote myNote = data.getParcelableExtra(MY_NOTE);
                     if (myNote != null) {
-                        notes.add(myNote);
+                        notes.set(position, myNote);
                         adapter.notifyItemChanged(myNote.getId());
                     }
                     break;
@@ -195,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
             View view = rv.findChildViewUnder(event.getX(), event.getY());
 
             if (view != null && gestureDetector.onTouchEvent(event)) {
-                int position = rv.getChildAdapterPosition(view);
+                position = rv.getChildAdapterPosition(view);
                 MyNote note = adapter.getNotes().get(position);
                 Intent intent = new Intent(getBaseContext(), EditActivity.class)
                         .putExtra(MY_NOTE, note);

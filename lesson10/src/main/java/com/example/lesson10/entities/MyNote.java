@@ -24,6 +24,10 @@ public class MyNote implements Parcelable {
         this.content = content;
     }
 
+    public MyNote(int id) {
+        this.id = id;
+    }
+
     protected MyNote(Parcel in) {
         id = in.readLong();
         name = in.readString();

@@ -34,13 +34,11 @@ public class MainActivity extends AppCompatActivity {
     public static final int ADD_REQUEST_CODE = 1;
     public static final int EDIT_REQUEST_CODE = 2;
     public static final int INIT_NOTES = 1001;
-    public static final int ADD_NOTE = 1002;
-    public static final int EDIT_NOTE = 1003;
     public static final String MY_NOTE = "myNote";
 
     private List<MyNote> notes = new ArrayList<>();
+    private RecyclerView recyclerView;
     private MyNotesAdapter adapter;
-    private int position;
 
     private Handler handler;
     private MyObserver myObserver;
@@ -60,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        adapter.notifyDataSetChanged();
         getContentResolver().registerContentObserver(NotesContract.CONTENT_URI, true, myObserver);
     }
 
@@ -85,26 +84,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(final int requestCode, int resultCode, final Intent data) {
         if (resultCode == RESULT_OK && data != null) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Message message = new Message();
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable(MY_NOTE, data.getParcelableExtra(MY_NOTE));
-                    message.setData(bundle);
-                    switch (requestCode) {
-                        case ADD_REQUEST_CODE: {
-                            message.what = ADD_NOTE;
-                            break;
-                        }
-                        case EDIT_REQUEST_CODE: {
-                            message.what = EDIT_NOTE;
-                            break;
-                        }
-                    }
-                    handler.sendMessage(message);
+            switch (requestCode) {
+                case ADD_REQUEST_CODE: {
+                    MyNote myNote = data.getParcelableExtra(MY_NOTE);
+                    notes.add(myNote);
+                    adapter.notifyDataSetChanged();
+                    break;
                 }
-            }).start();
+                case EDIT_REQUEST_CODE: {
+                    MyNote myNote = data.getParcelableExtra(MY_NOTE);
+                    if (myNote != null) {
+                        notes.add(myNote);
+                        adapter.notifyItemChanged(myNote.getId());
+                    }
+                    break;
+                }
+            }
         }
     }
 
@@ -114,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        RecyclerView recyclerView = findViewById(R.id.list);
+        recyclerView = findViewById(R.id.list);
         adapter = new MyNotesAdapter(notes);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(listener);
@@ -167,32 +162,11 @@ public class MainActivity extends AppCompatActivity {
     private class MyHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case INIT_NOTES: {
-                    Bundle bundle = msg.getData();
-                    MyNote myNote = bundle.getParcelable(MY_NOTE);
-                    notes.add(myNote);
-                    adapter.notifyDataSetChanged();
-                    break;
-                }
-                case ADD_NOTE: {
-                    Bundle bundle = msg.getData();
-                    MyNote myNote = bundle.getParcelable(MY_NOTE);
-                    if (myNote != null) {
-                        notes.add(myNote);
-                        adapter.notifyItemChanged(myNote.getId());
-                    }
-                    break;
-                }
-                case EDIT_NOTE: {
-                    Bundle bundle = msg.getData();
-                    MyNote myNote = bundle.getParcelable(MY_NOTE);
-                    if (myNote != null) {
-                        notes.set(position, myNote);
-                        adapter.notifyItemChanged(position);
-                    }
-                    break;
-                }
+            if (msg.what == INIT_NOTES) {
+                Bundle bundle = msg.getData();
+                MyNote myNote = bundle.getParcelable(MY_NOTE);
+                notes.add(myNote);
+                adapter.notifyDataSetChanged();
             }
         }
     }
@@ -204,6 +178,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onSingleTapUp(MotionEvent motionEvent) {
                 return true;
             }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+                super.onLongPress(e);
+                View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                int position = recyclerView.getChildAdapterPosition(child);
+                MyNote deletedNote = notes.remove(position);
+                adapter.notifyItemRemoved(position);
+                deleteNote(deletedNote.getId());
+            }
         });
 
         @Override
@@ -211,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             View view = rv.findChildViewUnder(event.getX(), event.getY());
 
             if (view != null && gestureDetector.onTouchEvent(event)) {
-                position = rv.getChildAdapterPosition(view);
+                int position = rv.getChildAdapterPosition(view);
                 MyNote note = adapter.getNotes().get(position);
                 Intent intent = new Intent(getBaseContext(), EditActivity.class)
                         .putExtra(MY_NOTE, note);
@@ -222,14 +206,33 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
         }
 
         @Override
         public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
         }
     };
+
+    private void deleteNote(final int id) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                DbHelper dbHelper = null;
+                SQLiteDatabase db = null;
+                try {
+                    dbHelper = new DbHelper(getBaseContext());
+                    db = dbHelper.getWritableDatabase();
+                    db.delete(Note.TABLE_NAME, Note._ID + " = ?", new String[]{String.valueOf(id)});
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (db != null) {
+                        db.close();
+                    }
+                }
+            }
+        }).start();
+    }
 
     private class MyObserver extends ContentObserver {
 

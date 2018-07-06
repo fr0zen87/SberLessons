@@ -18,8 +18,8 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String URL_1 = "content://com.example.lesson9.provider/notes";
-    private String URL_2 = "content://com.example.lesson10.provider/notes";
+    private static final String URL_1 = "content://com.example.lesson9.provider/notes";
+    private static final String URL_2 = "content://com.example.lesson10.provider/notes";
 
     private boolean isUseId = false;
     private int projectToUse = 1;
@@ -45,16 +45,16 @@ public class MainActivity extends AppCompatActivity {
         if (checkBox.isChecked()) {
             isUseId = true;
             editText.setVisibility(View.VISIBLE);
-            insertButton.setClickable(false);
-            deleteButton.setClickable(true);
-            updateButton.setClickable(true);
+            insertButton.setVisibility(View.GONE);
+            deleteButton.setVisibility(View.VISIBLE);
+            updateButton.setVisibility(View.VISIBLE);
         } else {
             isUseId = false;
             editText.setVisibility(View.INVISIBLE);
             editText.setText("");
-            insertButton.setClickable(true);
-            deleteButton.setClickable(false);
-            updateButton.setClickable(false);
+            insertButton.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.GONE);
+            updateButton.setVisibility(View.GONE);
         }
     }
 
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.radioButton_lesson10: {
                 projectToUse = 2;
+                break;
             }
         }
     }
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         values.put("date", new Date().toString());
         values.put("content", "update note content");
         int rowsUpdated = contentResolver.update(requestUri, values, null, null);
-        textView.setText(String.format(Locale.getDefault(),"Rows updated %d", rowsUpdated));
+        textView.setText(String.format(Locale.getDefault(),"Rows updated: %d", rowsUpdated));
     }
 
     private void insertRequest(Uri requestUri, ContentResolver contentResolver, TextView textView) {
@@ -112,13 +113,13 @@ public class MainActivity extends AppCompatActivity {
         values.put("content", "new note content");
         Uri insertUri = contentResolver.insert(requestUri, values);
         if (insertUri != null) {
-            textView.setText(insertUri.toString());
+            textView.setText(String.format(Locale.getDefault(),"Row inserted: %s", insertUri.toString()));
         }
     }
 
     private void deleteRequest(Uri requestUri, ContentResolver contentResolver, TextView textView) {
         int rowsDeleted = contentResolver.delete(requestUri, null, null);
-        textView.setText(String.format(Locale.getDefault(),"Rows deleted %d", rowsDeleted));
+        textView.setText(String.format(Locale.getDefault(),"Rows deleted: %d", rowsDeleted));
     }
 
     private void selectRequest(Uri requestUri, ContentResolver contentResolver, TextView textView) {

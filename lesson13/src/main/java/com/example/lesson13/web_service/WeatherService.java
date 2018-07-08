@@ -1,13 +1,13 @@
-package com.example.lesson13;
+package com.example.lesson13.web_service;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
+import com.example.lesson13.MainActivity;
+import com.example.lesson13.entities.Weather;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Response;
 
@@ -23,8 +23,8 @@ public class WeatherService extends IntentService {
         RetrofitHelper retrofitHelper = new RetrofitHelper();
 
         try {
-            Response<List<Weather>> result = retrofitHelper.getService().getWeekWeather().execute();
-            Intent broadcastIntent = new Intent().putParcelableArrayListExtra(MainActivity.WEATHERS, (ArrayList<? extends Parcelable>) result.body());
+            Response<Weather> result = retrofitHelper.getService().getWeekWeather().execute();
+            Intent broadcastIntent = new Intent().putExtra(MainActivity.WEATHER, result.body());
             sendBroadcast(broadcastIntent);
         } catch (IOException e) {
             e.printStackTrace();

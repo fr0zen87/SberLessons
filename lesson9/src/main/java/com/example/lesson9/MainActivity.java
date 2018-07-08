@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
         getContentResolver().registerContentObserver(NotesContract.CONTENT_URI, true, myObserver);
     }
 
@@ -244,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
-            adapter.notifyDataSetChanged();
+            initNotes();
         }
     }
 }

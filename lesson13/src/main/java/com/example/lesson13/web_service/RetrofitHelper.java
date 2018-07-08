@@ -1,12 +1,11 @@
-package com.example.lesson13;
+package com.example.lesson13.web_service;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitHelper {
 
-    private static final String VERSION_API = "2.5/forecast/";
-    private static final String BASE_URL = "api.openweathermap.org/data/" + VERSION_API;
+    private static final String BASE_URL = "https://api.darksky.net/forecast/3af04d96725daf8d45251e7b082fdb62/";
 
     public WeatherWebService getService() {
         Retrofit retrofit = new Retrofit.Builder()

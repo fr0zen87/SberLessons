@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?listPreferredItemHeight"
-    android:padding="16dp">
+    android:padding="12dp">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -26,22 +26,30 @@
     <TextView
         android:id="@+id/date"
         style="@style/TextAppearance.AppCompat.Subhead"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toStartOf="@+id/temperature_high"
         app:layout_constraintStart_toEndOf="@+id/weather_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="Today, 9 July 2018" />
 
     <TextView
         android:id="@+id/weather_description"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/secondary_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/temperature_high"
         app:layout_constraintStart_toEndOf="@+id/weather_icon"
         app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="Sunny" />
 
     <TextView

@@ -12,6 +12,7 @@ import com.example.lesson13.R;
 import com.example.lesson13.entities.Data;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,11 +36,11 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         Data data = weather.get(i);
         viewHolder.weatherIconView.setImageResource(getImageResource(data));
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
-        String date = simpleDateFormat.format(data.getTime());
+        String date = simpleDateFormat.format(new Date(data.getTime() * 1000));
         viewHolder.dateView.setText(date);
         viewHolder.weatherDescriptionView.setText(data.getSummary());
-        viewHolder.temperatureLowView.setText((int) data.getTemperatureLow());
-        viewHolder.temperatureHighView.setText((int) data.getTemperatureHigh());
+        viewHolder.temperatureLowView.setText(String.valueOf((int) data.getTemperatureLow()));
+        viewHolder.temperatureHighView.setText(String.valueOf((int) data.getTemperatureHigh()));
     }
 
     @Override

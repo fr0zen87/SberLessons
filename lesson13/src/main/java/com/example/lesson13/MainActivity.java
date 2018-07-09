@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         adapter = new WeatherAdapter(new ArrayList<Data>());
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnItemTouchListener(onItemTouchListener);
+        //recyclerView.addOnItemTouchListener(onItemTouchListener);
 
         receiver = new WeatherReceiver();
         intentFilter = new IntentFilter(BROADCAST_ACTION);

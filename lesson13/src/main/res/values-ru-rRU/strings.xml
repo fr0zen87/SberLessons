@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Weather app</string>
+    <string name="sunrise">Восход солнца</string>
+    <string name="sunset">Заход солнца</string>
+    <string name="wind_speed">Скорость ветра</string>
+    <string name="pressure">Давление</string>
+    <string name="humidity">Влажность воздуха</string>
+    <string name="pressure_value">%d мм рт.ст.</string>
+    <string name="wind_speed_value">%.1f%n км/ч</string>
+</resources>

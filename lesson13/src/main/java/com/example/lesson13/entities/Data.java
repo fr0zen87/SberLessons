@@ -4,42 +4,48 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Data implements Parcelable {
-    private String time;
+    private long time;
     private String summary;
+    private String icon;
     private long sunriseTime;
     private long sunsetTime;
     private double temperatureHigh;
-    private long temperatureHighTime;
     private double temperatureLow;
-    private long temperatureLowTime;
     private double humidity;
     private double pressure;
+    private double windSpeed;
+    private int imageResource;
+    private int backgroundColor;
 
     protected Data(Parcel in) {
-        time = in.readString();
+        time = in.readLong();
         summary = in.readString();
+        icon = in.readString();
         sunriseTime = in.readLong();
         sunsetTime = in.readLong();
         temperatureHigh = in.readDouble();
-        temperatureHighTime = in.readLong();
         temperatureLow = in.readDouble();
-        temperatureLowTime = in.readLong();
         humidity = in.readDouble();
         pressure = in.readDouble();
+        windSpeed = in.readDouble();
+        imageResource = in.readInt();
+        backgroundColor = in.readInt();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(time);
+        dest.writeLong(time);
         dest.writeString(summary);
+        dest.writeString(icon);
         dest.writeLong(sunriseTime);
         dest.writeLong(sunsetTime);
         dest.writeDouble(temperatureHigh);
-        dest.writeLong(temperatureHighTime);
         dest.writeDouble(temperatureLow);
-        dest.writeLong(temperatureLowTime);
         dest.writeDouble(humidity);
         dest.writeDouble(pressure);
+        dest.writeDouble(windSpeed);
+        dest.writeInt(imageResource);
+        dest.writeInt(backgroundColor);
     }
 
     @Override
@@ -59,11 +65,11 @@ public class Data implements Parcelable {
         }
     };
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
@@ -73,6 +79,14 @@ public class Data implements Parcelable {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public long getSunriseTime() {
@@ -99,28 +113,12 @@ public class Data implements Parcelable {
         this.temperatureHigh = temperatureHigh;
     }
 
-    public long getTemperatureHighTime() {
-        return temperatureHighTime;
-    }
-
-    public void setTemperatureHighTime(long temperatureHighTime) {
-        this.temperatureHighTime = temperatureHighTime;
-    }
-
     public double getTemperatureLow() {
         return temperatureLow;
     }
 
     public void setTemperatureLow(double temperatureLow) {
         this.temperatureLow = temperatureLow;
-    }
-
-    public long getTemperatureLowTime() {
-        return temperatureLowTime;
-    }
-
-    public void setTemperatureLowTime(long temperatureLowTime) {
-        this.temperatureLowTime = temperatureLowTime;
     }
 
     public double getHumidity() {
@@ -137,5 +135,29 @@ public class Data implements Parcelable {
 
     public void setPressure(double pressure) {
         this.pressure = pressure;
+    }
+
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public void setWindSpeed(double windSpeed) {
+        this.windSpeed = windSpeed;
+    }
+
+    public int getImageResource() {
+        return imageResource;
+    }
+
+    public void setImageResource(int imageResource) {
+        this.imageResource = imageResource;
+    }
+
+    public int getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 }

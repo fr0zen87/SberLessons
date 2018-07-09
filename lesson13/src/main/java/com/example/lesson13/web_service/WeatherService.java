@@ -24,7 +24,8 @@ public class WeatherService extends IntentService {
 
         try {
             Response<Weather> result = retrofitHelper.getService().getWeekWeather().execute();
-            Intent broadcastIntent = new Intent().putExtra(MainActivity.WEATHER, result.body());
+            Intent broadcastIntent = new Intent(MainActivity.BROADCAST_ACTION)
+                    .putExtra(MainActivity.WEATHER, result.body());
             sendBroadcast(broadcastIntent);
         } catch (IOException e) {
             e.printStackTrace();

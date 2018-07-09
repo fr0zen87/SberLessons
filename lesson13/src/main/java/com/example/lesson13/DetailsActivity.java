@@ -1,6 +1,8 @@
 package com.example.lesson13;
 
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView humidityView;
     private TextView pressureView;
 
-    //private ConstraintLayout layout;
+    private ConstraintLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class DetailsActivity extends AppCompatActivity {
         humidityView = findViewById(R.id.details_humidity_value);
         pressureView = findViewById(R.id.details_pressure_value);
 
-        //layout = findViewById(R.id.main_weather_details);
+        layout = findViewById(R.id.main_details);
     }
 
     private void initValues() {
@@ -70,7 +72,8 @@ public class DetailsActivity extends AppCompatActivity {
         int pressure = (int)((data.getPressure() * 7.501) / 10);
         pressureView.setText(String.format(Locale.getDefault(), getString(R.string.pressure_value), pressure));
 
-        //layout.setBackgroundColor(data.getBackgroundColor());
+        int color = ContextCompat.getColor(this, data.getBackgroundColor());
+        layout.setBackgroundColor(color);
     }
 
     private String titleDateFormatter(long date) {

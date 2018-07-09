@@ -19,9 +19,11 @@ import java.util.Locale;
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
 
     private List<Data> weather;
+    private MyCallback myCallback;
 
-    public WeatherAdapter(List<Data> weather) {
+    public WeatherAdapter(List<Data> weather, MyCallback myCallback) {
         this.weather = weather;
+        this.myCallback = myCallback;
     }
 
     @NonNull
@@ -32,8 +34,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Data data = weather.get(i);
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+        final Data data = weather.get(i);
         viewHolder.weatherIconView.setImageResource(getImageResource(data));
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
         String date = simpleDateFormat.format(new Date(data.getTime() * 1000));
@@ -41,6 +43,13 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         viewHolder.weatherDescriptionView.setText(data.getSummary());
         viewHolder.temperatureLowView.setText(String.valueOf((int) data.getTemperatureLow()));
         viewHolder.temperatureHighView.setText(String.valueOf((int) data.getTemperatureHigh()));
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCallback.onItemClick(data);
+            }
+        });
     }
 
     @Override
@@ -129,5 +138,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     public void setWeather(List<Data> weather) {
         this.weather = weather;
+    }
+
+    public interface MyCallback {
+        void onItemClick(Data data);
     }
 }

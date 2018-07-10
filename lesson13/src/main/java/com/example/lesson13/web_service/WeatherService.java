@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 
 import com.example.lesson13.MainActivity;
+import com.example.lesson13.db.WeatherDatabase;
 import com.example.lesson13.entities.Weather;
 
 import java.io.IOException;
@@ -21,12 +22,18 @@ public class WeatherService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
 
         RetrofitHelper retrofitHelper = new RetrofitHelper();
+        WeatherDatabase weatherDatabase = WeatherDatabase.getInstance(getBaseContext());
 
         try {
             Response<Weather> result = retrofitHelper.getService().getWeekWeather().execute();
+            Weather weather = result.body();
             Intent broadcastIntent = new Intent(MainActivity.BROADCAST_ACTION)
-                    .putExtra(MainActivity.WEATHER, result.body());
+                    .putExtra(MainActivity.WEATHER, weather);
             sendBroadcast(broadcastIntent);
+
+            weatherDatabase.clearAllTables();
+            weatherDatabase.weatherDao().addWeather(weather);
+            weatherDatabase.weatherDao().addData(weather.getDaily().getData());
         } catch (IOException e) {
             e.printStackTrace();
         }

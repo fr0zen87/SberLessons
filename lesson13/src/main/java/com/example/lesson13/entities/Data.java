@@ -1,9 +1,14 @@
 package com.example.lesson13.entities;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+@Entity
 public class Data implements Parcelable {
+
+    @PrimaryKey
     private long time;
     private String summary;
     private String icon;

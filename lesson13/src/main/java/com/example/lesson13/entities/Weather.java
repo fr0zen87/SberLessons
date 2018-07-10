@@ -1,13 +1,17 @@
 package com.example.lesson13.entities;
 
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+@Entity(primaryKeys = {"latitude", "longitude", "timezone"})
 public class Weather implements Parcelable {
 
     private double latitude;
     private double longitude;
     private String timezone;
+    @Embedded
     private Daily daily;
 
     protected Weather(Parcel in) {

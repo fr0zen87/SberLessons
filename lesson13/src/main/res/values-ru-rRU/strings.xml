@@ -8,4 +8,5 @@
     <string name="humidity">Влажность воздуха</string>
     <string name="pressure_value">%d мм рт.ст.</string>
     <string name="wind_speed_value">%.1f км/ч</string>
+    <string name="no_internet_connection">Нет соединения с интернетом. Пожалуйста, проверьте подключение к интернету и попробуйте снова.</string>
 </resources>

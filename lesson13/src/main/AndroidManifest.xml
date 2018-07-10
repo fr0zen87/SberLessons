@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lesson13">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -21,7 +22,7 @@
 
         <service android:name=".web_service.WeatherService" />
 
-        <activity android:name=".DetailsActivity"></activity>
+        <activity android:name=".DetailsActivity" />
     </application>
 
 </manifest>

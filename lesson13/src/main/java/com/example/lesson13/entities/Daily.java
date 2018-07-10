@@ -1,13 +1,18 @@
 package com.example.lesson13.entities;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.List;
 
+@Entity(primaryKeys = {"summary", "icon"})
 public class Daily implements Parcelable {
+
     private String summary;
     private String icon;
+    @Ignore
     private List<Data> data;
 
     protected Daily(Parcel in) {

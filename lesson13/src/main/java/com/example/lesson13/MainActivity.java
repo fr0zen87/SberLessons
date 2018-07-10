@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
     public static final String WEATHER = "weather";
     public static final String WEATHER_DATA = "weather data";
 
-    private TextView emptyDataView;
     private ProgressBar progressBar;
     private TextView titleView;
     private TextView descriptionView;
@@ -50,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        emptyDataView = findViewById(R.id.empty_data_view);
         progressBar = findViewById(R.id.progress_bar);
         titleView = findViewById(R.id.main_title);
         descriptionView = findViewById(R.id.main_description);
@@ -111,12 +108,7 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
 
     @Override
     public void showEmptyMessage() {
-        emptyDataView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideEmptyMessage() {
-        emptyDataView.setVisibility(View.GONE);
+        Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -137,23 +129,15 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
         adapter.notifyDataSetChanged();
     }
 
-    private void initData() {
-        showProgressBar();
-        hideEmptyMessage();
+    @Override
+    public void startService() {
+        Intent intent = new Intent(this, WeatherService.class);
+        startService(intent);
+    }
 
+    private void initData() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = null;
-        boolean isConnected = false;
-        if (cm != null) {
-            activeNetwork = cm.getActiveNetworkInfo();
-            isConnected = activeNetwork.isConnectedOrConnecting();
-        }
-        if (isConnected) {
-            Intent intent = new Intent(this, WeatherService.class);
-            startService(intent);
-        } else {
-            presenter.getWeather();
-        }
+        presenter.initData(cm);
     }
 
     private class WeatherReceiver extends BroadcastReceiver {

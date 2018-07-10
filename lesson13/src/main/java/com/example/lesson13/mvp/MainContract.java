@@ -1,5 +1,7 @@
 package com.example.lesson13.mvp;
 
+import android.net.ConnectivityManager;
+
 import com.example.lesson13.entities.Weather;
 
 public interface MainContract {
@@ -9,7 +11,7 @@ public interface MainContract {
     }
 
     interface Presenter {
-        void getWeather();
+        void initData(ConnectivityManager connectivityManager);
     }
 
     interface View {
@@ -17,6 +19,6 @@ public interface MainContract {
         void hideProgressBar();
         void showWeather(Weather weather);
         void showEmptyMessage();
-        void hideEmptyMessage();
+        void startService();
     }
 }

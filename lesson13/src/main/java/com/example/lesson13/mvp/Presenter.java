@@ -1,5 +1,8 @@
 package com.example.lesson13.mvp;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.example.lesson13.entities.Data;
 import com.example.lesson13.entities.Weather;
 
@@ -16,7 +19,23 @@ public class Presenter implements MainContract.Presenter {
     }
 
     @Override
-    public void getWeather() {
+    public void initData(ConnectivityManager connectivityManager) {
+        mView.showProgressBar();
+
+        NetworkInfo activeNetwork = null;
+        boolean isConnected = false;
+        if (connectivityManager != null) {
+            activeNetwork = connectivityManager.getActiveNetworkInfo();
+            isConnected = activeNetwork.isConnectedOrConnecting();
+        }
+        if (isConnected) {
+            mView.startService();
+        } else {
+            getWeather();
+        }
+    }
+
+    private void getWeather() {
         Weather weather = mModel.getWeather();
         List<Data> data = weather.getDaily().getData();
         if (data != null && !data.isEmpty()) {

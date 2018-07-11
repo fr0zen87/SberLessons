@@ -9,6 +9,7 @@ import android.os.Parcelable;
 public class Data implements Parcelable {
 
     @PrimaryKey
+    private long id;
     private long time;
     private String summary;
     private String icon;
@@ -21,6 +22,9 @@ public class Data implements Parcelable {
     private double windSpeed;
     private int imageResource;
     private int backgroundColor;
+
+    public Data() {
+    }
 
     protected Data(Parcel in) {
         time = in.readLong();
@@ -69,6 +73,14 @@ public class Data implements Parcelable {
             return new Data[size];
         }
     };
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public long getTime() {
         return time;

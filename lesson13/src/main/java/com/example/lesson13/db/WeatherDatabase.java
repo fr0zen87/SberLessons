@@ -9,7 +9,7 @@ import com.example.lesson13.entities.Daily;
 import com.example.lesson13.entities.Data;
 import com.example.lesson13.entities.Weather;
 
-@Database(entities = {Weather.class, Daily.class, Data.class}, version = 1)
+@Database(entities = {Weather.class, Daily.class, Data.class}, version = 1, exportSchema = false)
 public abstract class WeatherDatabase extends RoomDatabase {
 
     private static WeatherDatabase instance;

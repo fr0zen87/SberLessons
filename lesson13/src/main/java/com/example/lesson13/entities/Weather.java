@@ -2,17 +2,23 @@ package com.example.lesson13.entities;
 
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-@Entity(primaryKeys = {"latitude", "longitude", "timezone"})
+@Entity
 public class Weather implements Parcelable {
 
+    @PrimaryKey
+    private long id;
     private double latitude;
     private double longitude;
     private String timezone;
     @Embedded
     private Daily daily;
+
+    public Weather() {
+    }
 
     protected Weather(Parcel in) {
         latitude = in.readDouble();
@@ -45,6 +51,14 @@ public class Weather implements Parcelable {
             return new Weather[size];
         }
     };
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public double getLatitude() {
         return latitude;

@@ -1,5 +1,6 @@
 package com.example.lesson13;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.lesson13.databinding.ActivityDetailsBinding;
 import com.example.lesson13.entities.Data;
 
 import java.text.SimpleDateFormat;
@@ -31,10 +33,14 @@ public class DetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        //setContentView(R.layout.activity_details);
 
-        initViews();
-        initValues();
+        ActivityDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
+        Data data = getIntent().getParcelableExtra(MainActivity.WEATHER_DATA);
+        binding.setData(data);
+
+        //initViews();
+        //initValues();
     }
 
     private void initViews() {

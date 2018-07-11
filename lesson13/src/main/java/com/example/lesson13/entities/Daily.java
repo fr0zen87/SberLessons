@@ -2,18 +2,24 @@ package com.example.lesson13.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.List;
 
-@Entity(primaryKeys = {"summary", "icon"})
+@Entity
 public class Daily implements Parcelable {
 
+    @PrimaryKey
+    private long dailyId;
     private String summary;
     private String icon;
     @Ignore
     private List<Data> data;
+
+    public Daily() {
+    }
 
     protected Daily(Parcel in) {
         summary = in.readString();
@@ -44,6 +50,14 @@ public class Daily implements Parcelable {
             return new Daily[size];
         }
     };
+
+    public long getDailyId() {
+        return dailyId;
+    }
+
+    public void setDailyId(long dailyId) {
+        this.dailyId = dailyId;
+    }
 
     public String getSummary() {
         return summary;

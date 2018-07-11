@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 public class Daily implements Parcelable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long dailyId;
     private String summary;
     private String icon;

@@ -8,7 +8,7 @@ import android.os.Parcelable;
 @Entity
 public class Data implements Parcelable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private long time;
     private String summary;

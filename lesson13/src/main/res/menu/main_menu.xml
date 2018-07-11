@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/refresh"
         android:title="@string/refresh"
-        android:icon="@drawable/baseline_refresh_24"
+        android:icon="@drawable/baseline_refresh_black_24"
         app:showAsAction="ifRoom">
     </item>
     <item android:id="@+id/settings"

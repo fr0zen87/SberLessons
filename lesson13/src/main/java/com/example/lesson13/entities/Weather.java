@@ -9,7 +9,7 @@ import android.os.Parcelable;
 @Entity
 public class Weather implements Parcelable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private double latitude;
     private double longitude;

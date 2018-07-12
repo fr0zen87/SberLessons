@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:defaultValue="Moscow"
+        android:icon="@drawable/baseline_location_searching_black_48"
+        android:key="location"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Changes the location"
+        android:title="Location" />
+</PreferenceScreen>

@@ -33,10 +33,6 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-//        ActivityDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
-//        Data data = getIntent().getParcelableExtra(MainActivity.WEATHER_DATA);
-//        binding.setData(data);
-
         initViews();
         initValues();
     }

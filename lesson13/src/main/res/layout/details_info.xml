@@ -1,229 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/extra_weather_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <data>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
-        <variable
-            name="data"
-            type="com.example.lesson13.entities.Data" />
+    <TextView
+        android:id="@+id/details_sunrise"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/sunrise"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/details_sunset"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/sunrise_image"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <import type="com.example.lesson13.utils.DetailsActivityUtils" />
-    </data>
+    <TextView
+        android:id="@+id/details_sunset"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/sunset"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/details_wind_speed"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/sunset_image"
+        app:layout_constraintTop_toBottomOf="@+id/details_sunrise" />
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/extra_weather_details"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/details_wind_speed"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/wind_speed"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/details_humidity"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/wind_speed_image"
+        app:layout_constraintTop_toBottomOf="@+id/details_sunset" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+    <TextView
+        android:id="@+id/details_humidity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/humidity"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/details_pressure"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/humidity_image"
+        app:layout_constraintTop_toBottomOf="@+id/details_wind_speed" />
 
-        <TextView
-            android:id="@+id/details_sunrise"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/sunrise"
-            android:textColor="@color/primary_text"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/details_sunset"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/sunrise_image"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/details_pressure"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/pressure"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/pressure_image"
+        app:layout_constraintTop_toBottomOf="@+id/details_humidity" />
 
-        <TextView
-            android:id="@+id/details_sunset"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/sunset"
-            android:textColor="@color/primary_text"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/details_wind_speed"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/sunset_image"
-            app:layout_constraintTop_toBottomOf="@+id/details_sunrise" />
+    <TextView
+        android:id="@+id/details_sunrise_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/secondary_text"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/details_sunrise"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        tools:text="9:30" />
 
-        <TextView
-            android:id="@+id/details_wind_speed"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/wind_speed"
-            android:textColor="@color/primary_text"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/details_humidity"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/wind_speed_image"
-            app:layout_constraintTop_toBottomOf="@+id/details_sunset" />
+    <TextView
+        android:id="@+id/details_sunset_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/secondary_text"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/details_sunset"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        tools:text="21:30" />
 
-        <TextView
-            android:id="@+id/details_humidity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/humidity"
-            android:textColor="@color/primary_text"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/details_pressure"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/humidity_image"
-            app:layout_constraintTop_toBottomOf="@+id/details_wind_speed" />
+    <TextView
+        android:id="@+id/details_wind_speed_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/secondary_text"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/details_wind_speed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        tools:text="3.5 km/h" />
 
-        <TextView
-            android:id="@+id/details_pressure"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/pressure"
-            android:textColor="@color/primary_text"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/pressure_image"
-            app:layout_constraintTop_toBottomOf="@+id/details_humidity" />
+    <TextView
+        android:id="@+id/details_humidity_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/secondary_text"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/details_humidity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        tools:text="77%" />
 
-        <TextView
-            android:id="@+id/details_sunrise_value"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:text="@{DetailsActivityUtils.otherDateFormatter(data.sunriseTime)}"
-            android:textColor="@color/secondary_text"
-            android:textSize="20sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/details_sunrise"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline4"
-            tools:text="9:30" />
+    <TextView
+        android:id="@+id/details_pressure_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/secondary_text"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/details_pressure"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        tools:text="1000 millibars" />
 
-        <TextView
-            android:id="@+id/details_sunset_value"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:text="@{DetailsActivityUtils.otherDateFormatter(data.sunsetTime)}"
-            android:textColor="@color/secondary_text"
-            android:textSize="20sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/details_sunset"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline4"
-            tools:text="21:30" />
+    <ImageView
+        android:id="@+id/sunrise_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/details_sunrise"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/details_sunrise"
+        app:srcCompat="@drawable/sunrise" />
 
-        <TextView
-            android:id="@+id/details_wind_speed_value"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:text="@{DetailsActivityUtils.formatWindSpeed(context, data.windSpeed)}"
-            android:textColor="@color/secondary_text"
-            android:textSize="20sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/details_wind_speed"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline4"
-            tools:text="3.5 km/h" />
+    <ImageView
+        android:id="@+id/sunset_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/details_sunset"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/details_sunset"
+        app:srcCompat="@drawable/sunset" />
 
-        <TextView
-            android:id="@+id/details_humidity_value"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:text="@{DetailsActivityUtils.formatHumidity(data.humidity)}"
-            android:textColor="@color/secondary_text"
-            android:textSize="20sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/details_humidity"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline4"
-            tools:text="77%" />
+    <ImageView
+        android:id="@+id/wind_speed_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/details_wind_speed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/details_wind_speed"
+        app:srcCompat="@drawable/wind" />
 
-        <TextView
-            android:id="@+id/details_pressure_value"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:text="@{DetailsActivityUtils.formatPressure(context, data.pressure)}"
-            android:textColor="@color/secondary_text"
-            android:textSize="20sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/details_pressure"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline4"
-            tools:text="1000 millibars" />
+    <ImageView
+        android:id="@+id/humidity_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/details_humidity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/details_humidity"
+        app:srcCompat="@drawable/humidity" />
 
-        <ImageView
-            android:id="@+id/sunrise_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/details_sunrise"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/details_sunrise"
-            app:srcCompat="@drawable/sunrise" />
+    <ImageView
+        android:id="@+id/pressure_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/details_pressure"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/details_pressure"
+        app:srcCompat="@drawable/pressure" />
 
-        <ImageView
-            android:id="@+id/sunset_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/details_sunset"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/details_sunset"
-            app:srcCompat="@drawable/sunset" />
-
-        <ImageView
-            android:id="@+id/wind_speed_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/details_wind_speed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/details_wind_speed"
-            app:srcCompat="@drawable/wind" />
-
-        <ImageView
-            android:id="@+id/humidity_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/details_humidity"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/details_humidity"
-            app:srcCompat="@drawable/humidity" />
-
-        <ImageView
-            android:id="@+id/pressure_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/details_pressure"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/details_pressure"
-            app:srcCompat="@drawable/pressure" />
-
-    </android.support.constraint.ConstraintLayout>
-
-</layout>
+</android.support.constraint.ConstraintLayout>

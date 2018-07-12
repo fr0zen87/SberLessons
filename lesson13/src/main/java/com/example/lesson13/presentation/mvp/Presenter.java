@@ -26,7 +26,9 @@ public class Presenter implements MainContract.Presenter {
         boolean isConnected = false;
         if (connectivityManager != null) {
             activeNetwork = connectivityManager.getActiveNetworkInfo();
-            isConnected = activeNetwork.isConnectedOrConnecting();
+            if (activeNetwork != null) {
+                isConnected = activeNetwork.isConnectedOrConnecting();
+            }
         }
         if (isConnected) {
             mView.startService();
@@ -39,10 +41,11 @@ public class Presenter implements MainContract.Presenter {
         Weather weather = mModel.getWeather();
         List<Data> data = weather.getDaily().getData();
         if (data != null && !data.isEmpty()) {
+            mView.hideProgressBar();
             mView.showWeather(weather);
         } else {
+            mView.hideProgressBar();
             mView.showEmptyMessage();
         }
-        mView.hideProgressBar();
     }
 }

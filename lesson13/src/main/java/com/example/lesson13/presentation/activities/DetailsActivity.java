@@ -9,10 +9,7 @@ import android.widget.TextView;
 
 import com.example.lesson13.R;
 import com.example.lesson13.data.entities.Data;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import com.example.lesson13.presentation.utils.FormatUtils;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -56,34 +53,17 @@ public class DetailsActivity extends AppCompatActivity {
     private void initValues() {
         Data data = getIntent().getParcelableExtra(MainActivity.WEATHER_DATA);
 
-        titleView.setText(titleDateFormatter(data.getTime()));
+        titleView.setText(FormatUtils.titleDateFormatter(data.getTime()));
         weatherIconView.setImageResource(data.getImageResource());
         weatherDescriptionView.setText(data.getSummary());
-        temperatureHighView.setText(String.valueOf((int) data.getTemperatureHigh()));
-        temperatureLowView.setText(String.valueOf((int) data.getTemperatureLow()));
-        sunriseView.setText(otherDateFormatter(data.getSunriseTime()));
-        sunsetView.setText(otherDateFormatter(data.getSunsetTime()));
+        temperatureHighView.setText(FormatUtils.formatTemperature(data.getTemperatureHigh()));
+        temperatureLowView.setText(FormatUtils.formatTemperature(data.getTemperatureLow()));
+        sunriseView.setText(FormatUtils.otherDateFormatter(data.getSunriseTime()));
+        sunsetView.setText(FormatUtils.otherDateFormatter(data.getSunsetTime()));
+        windSpeedView.setText(FormatUtils.formatWind(data.getWindSpeed(), getString(R.string.wind_speed_value)));
+        humidityView.setText(FormatUtils.formatHumidity(data.getHumidity()));
+        pressureView.setText(FormatUtils.formatPressure(data.getPressure(), getString(R.string.pressure_value)));
 
-        double windSpeed = 1.6093 * data.getWindSpeed();
-        windSpeedView.setText(String.format(Locale.getDefault(), getString(R.string.wind_speed_value), windSpeed));
-
-        int humidity = (int)(data.getHumidity() * 100);
-        humidityView.setText(String.format(Locale.getDefault(), "%d%%", humidity));
-
-        int pressure = (int)((data.getPressure() * 7.501) / 10);
-        pressureView.setText(String.format(Locale.getDefault(), getString(R.string.pressure_value), pressure));
-
-        int color = ContextCompat.getColor(this, data.getBackgroundColor());
-        layout.setBackgroundColor(color);
-    }
-
-    private String titleDateFormatter(long date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, d MMMM yyyy", Locale.getDefault());
-        return simpleDateFormat.format(new Date(date * 1000));
-    }
-
-    private String otherDateFormatter(long date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm", Locale.getDefault());
-        return simpleDateFormat.format(new Date(date * 1000));
+        layout.setBackgroundColor(ContextCompat.getColor(this, data.getBackgroundColor()));
     }
 }

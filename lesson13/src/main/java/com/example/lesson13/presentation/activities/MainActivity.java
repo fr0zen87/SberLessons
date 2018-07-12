@@ -30,8 +30,7 @@ import com.example.lesson13.presentation.mvp.Presenter;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements WeatherAdapter.MyCallback,
-        MainContract.View,
-        SwipeRefreshLayout.OnRefreshListener {
+        MainContract.View {
 
     public static final String BROADCAST_ACTION = "com.example.lesson13.WeatherReceiver";
     public static final String WEATHER = "weather";
@@ -40,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
     private ProgressBar progressBar;
     private TextView titleView;
     private TextView descriptionView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private WeatherAdapter adapter;
 
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
         progressBar = findViewById(R.id.progress_bar);
         titleView = findViewById(R.id.main_title);
         descriptionView = findViewById(R.id.main_description);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         adapter = new WeatherAdapter(new ArrayList<Data>(), this);
@@ -69,6 +70,13 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
         presenter = new Presenter(this, mainModel);
 
         initData();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData();
+            }
+        });
     }
 
     @Override
@@ -115,11 +123,17 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
 
     @Override
     public void showProgressBar() {
+        if(swipeRefreshLayout.isRefreshing()) {
+            return;
+        }
         progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgressBar() {
+        if(swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
         progressBar.setVisibility(View.GONE);
     }
 
@@ -135,11 +149,6 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
     public void startService() {
         Intent intent = new Intent(this, WeatherService.class);
         startService(intent);
-    }
-
-    @Override
-    public void onRefresh() {
-        initData();
     }
 
     @Override

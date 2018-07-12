@@ -40,7 +40,7 @@ public class MainModel implements MainContract.Model {
         @Override
         protected Weather doInBackground(Void... voids) {
             Weather weather = dao.getWeather();
-            long time = new Date().getTime() - 86400000;
+            long time = (new Date().getTime() - 86400000) / 1000;
             List<Data> data = dao.getData(time);
             weather.getDaily().setData(data);
             return weather;

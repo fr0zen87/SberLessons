@@ -60,9 +60,7 @@ public class WeatherService extends IntentService {
             sendBroadcast(broadcastIntent);
 
             weatherDatabase.clearAllTables();
-            dao.addWeather(weather);
-            dao.addDailyData(weather.getDaily().getData());
-            dao.addHourlyData(weather.getHourly().getData());
+            dao.addAll(weather);
         } catch (IOException e) {
             e.printStackTrace();
         }

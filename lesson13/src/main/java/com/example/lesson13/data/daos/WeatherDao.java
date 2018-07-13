@@ -3,6 +3,7 @@ package com.example.lesson13.data.daos;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Transaction;
 
 import com.example.lesson13.data.entities.DailyData;
 import com.example.lesson13.data.entities.HourlyData;
@@ -11,23 +12,30 @@ import com.example.lesson13.data.entities.Weather;
 import java.util.List;
 
 @Dao
-public interface WeatherDao {
+public abstract class WeatherDao {
 
     @Insert
-    void addWeather(Weather weather);
+    public abstract void addWeather(Weather weather);
 
     @Insert
-    void addDailyData(List<DailyData> data);
+    public abstract void addDailyData(List<DailyData> data);
 
     @Insert
-    void addHourlyData(List<HourlyData> data);
+    public abstract void addHourlyData(List<HourlyData> data);
 
     @Query("SELECT * FROM weather")
-    Weather getWeather();
+    public abstract Weather getWeather();
 
     @Query("SELECT * FROM DailyData WHERE time >= :time")
-    List<DailyData> getDailyData(long time);
+    public abstract List<DailyData> getDailyData(long time);
 
     @Query("SELECT * FROM HourlyData WHERE time >= :time")
-    List<HourlyData> getHourlyData(long time);
+    public abstract List<HourlyData> getHourlyData(long time);
+
+    @Transaction
+    public void addAll(Weather weather) {
+        addWeather(weather);
+        addDailyData(weather.getDaily().getData());
+        addHourlyData(weather.getHourly().getData());
+    }
 }

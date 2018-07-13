@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 
 import com.example.lesson13.data.daos.WeatherDao;
 import com.example.lesson13.data.databases.WeatherDatabase;
+import com.example.lesson13.data.entities.HourlyData;
 import com.example.lesson13.data.entities.Weather;
 import com.example.lesson13.domain.helpers.RetrofitHelper;
 import com.example.lesson13.presentation.activities.MainActivity;
@@ -43,7 +44,7 @@ public class WeatherService extends IntentService {
             boolean isChanged = false;
 
             if (intent != null) {
-                isChanged = intent.getBooleanExtra(SettingsActivity.IS_PREFS_CHANGED, true);
+                isChanged = intent.getBooleanExtra(SettingsActivity.IS_PREFS_CHANGED, false);
             }
             if (isChanged) {
                 coordinates = getNewCoordinates();
@@ -55,6 +56,8 @@ public class WeatherService extends IntentService {
                     .getWeekWeather(coordinates.get(0), coordinates.get(1))
                     .execute();
             Weather weather = result.body();
+            List<HourlyData> data = weather.getHourly().getData().subList(0, 25);
+            weather.getHourly().setData(data);
             Intent broadcastIntent = new Intent(MainActivity.BROADCAST_ACTION)
                     .putExtra(MainActivity.WEATHER, weather);
             sendBroadcast(broadcastIntent);

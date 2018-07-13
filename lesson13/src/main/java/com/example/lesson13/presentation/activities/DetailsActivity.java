@@ -9,6 +9,8 @@ import com.example.lesson13.R;
 import com.example.lesson13.data.entities.DailyData;
 import com.example.lesson13.presentation.utils.FormatUtils;
 
+import java.util.Locale;
+
 public class DetailsActivity extends AppCompatActivity {
 
     private TextView titleView;
@@ -54,7 +56,7 @@ public class DetailsActivity extends AppCompatActivity {
         temperatureLowView.setText(FormatUtils.formatTemperature(dailyData.getTemperatureLow()));
         sunriseView.setText(FormatUtils.otherDateFormatter(dailyData.getSunriseTime()));
         sunsetView.setText(FormatUtils.otherDateFormatter(dailyData.getSunsetTime()));
-        windSpeedView.setText(FormatUtils.formatWind(dailyData.getWindSpeed(), getString(R.string.wind_speed_value)));
+        windSpeedView.setText(String.format(Locale.getDefault(), getString(R.string.wind_speed_value), dailyData.getWindSpeed()));
         humidityView.setText(FormatUtils.formatHumidity(dailyData.getHumidity()));
         pressureView.setText(FormatUtils.formatPressure(dailyData.getPressure(), getString(R.string.pressure_value)));
     }

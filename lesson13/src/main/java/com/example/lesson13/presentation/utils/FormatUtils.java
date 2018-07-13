@@ -27,13 +27,8 @@ public class FormatUtils {
         return String.format(Locale.getDefault(), formatString, formattedPressure);
     }
 
-    public static String formatWind(double windSpeed, String formatString) {
-        double formattedWindSpeed = (1.6093 * windSpeed) * 1000 / 3600;
-        return String.format(Locale.getDefault(), formatString, formattedWindSpeed);
-    }
-
     public static String otherDateFormatter(long date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         return simpleDateFormat.format(new Date(date * 1000));
     }
 

@@ -8,6 +8,6 @@ import retrofit2.http.Path;
 
 public interface WeatherWebService {
 
-    @GET("{latitude},{longitude}?exclude=currently,minutely,alerts,flags&units=auto&lang=ru")
+    @GET("{latitude},{longitude}?exclude=currently,minutely,alerts,flags&units=si&lang=ru")
     Call<Weather> getWeekWeather(@Path("latitude") double latitude, @Path("longitude") double longitude);
 }

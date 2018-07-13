@@ -1,6 +1,5 @@
 package com.example.lesson13.presentation.activities;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -176,13 +175,8 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
     public void startService() {
         Intent intent = new Intent(this, WeatherService.class)
                 .putExtra(SettingsActivity.IS_PREFS_CHANGED, isChanged);
+        isChanged = false;
         startService(intent);
-    }
-
-    @Override
-    public boolean onNavigateUpFromChild(Activity child) {
-        initData();
-        return super.onNavigateUpFromChild(child);
     }
 
     private void initData() {

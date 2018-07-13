@@ -49,10 +49,11 @@ public class FormatUtils {
         int resource = 0;
         switch (res) {
             case "clear-day": {
-                //same as clear-night
+                resource = R.drawable.ic_clear_day;
+                break;
             }
             case "clear-night": {
-                resource = R.drawable.ic_clear;
+                resource = R.drawable.ic_clear_night;
                 break;
             }
             case "rain": {
@@ -60,14 +61,16 @@ public class FormatUtils {
                 break;
             }
             case "sleet": {
-                //same as snow
+                resource = R.drawable.ic_sleet;
+                break;
             }
             case "snow": {
                 resource = R.drawable.ic_snow;
                 break;
             }
             case "wind": {
-
+                resource = R.drawable.ic_wind;
+                break;
             }
             case "fog": {
                 resource = R.drawable.ic_fog;
@@ -78,14 +81,15 @@ public class FormatUtils {
                 break;
             }
             case "partly-cloudy-day": {
-                //same as partly-cloudy-night
+                resource = R.drawable.ic_partly_cloudy_day;
+                break;
             }
             case "partly-cloudy-night": {
-                resource = R.drawable.ic_light_clouds;
+                resource = R.drawable.ic_partly_cloudy_night;
                 break;
             }
             default: {
-                resource = R.drawable.ic_clear;
+                resource = R.drawable.ic_clear_day;
                 break;
             }
         }

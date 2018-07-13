@@ -21,7 +21,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:srcCompat="@drawable/ic_clear" />
+        app:srcCompat="@drawable/ic_partly_cloudy_day" />
 
     <TextView
         android:id="@+id/date"

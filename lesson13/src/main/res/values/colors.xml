@@ -4,18 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="white">#FFFFFF</color>
-
-    <color name="primary_text">#212121</color>
-    <color name="secondary_text">#727272</color>
+    <color name="primary_text">#ffffff</color>
+    <color name="secondary_text">#000000</color>
 
     <color name="max_temp">#d50000</color>
     <color name="min_temp">#2962ff</color>
 
-    <color name="background_sun">#fff59d</color>
-    <color name="background_rain">#64b5f6</color>
-    <color name="background_snow">#ffffff</color>
-    <color name="background_fog">#d7ccc8</color>
-    <color name="background_cloud">#b3e5fc</color>
-    <color name="background_partly_cloudy">#e0f7fa</color>
 </resources>

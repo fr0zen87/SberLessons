@@ -10,24 +10,24 @@ import android.os.Parcelable;
 import java.util.List;
 
 @Entity
-public class Daily implements Parcelable {
+public class Hourly implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
-    private long dailyId;
-    @ColumnInfo(name = "daily_summary")
+    private long hourlyId;
+    @ColumnInfo(name = "hourly_summary")
     private String summary;
-    @ColumnInfo(name = "daily_icon")
+    @ColumnInfo(name = "hourly_icon")
     private String icon;
     @Ignore
-    private List<DailyData> data;
+    private List<HourlyData> data;
 
-    public Daily() {
+    public Hourly() {
     }
 
-    protected Daily(Parcel in) {
+    protected Hourly(Parcel in) {
         summary = in.readString();
         icon = in.readString();
-        data = in.createTypedArrayList(DailyData.CREATOR);
+        data = in.createTypedArrayList(HourlyData.CREATOR);
     }
 
     @Override
@@ -42,24 +42,24 @@ public class Daily implements Parcelable {
         return 0;
     }
 
-    public static final Creator<Daily> CREATOR = new Creator<Daily>() {
+    public static final Creator<Hourly> CREATOR = new Creator<Hourly>() {
         @Override
-        public Daily createFromParcel(Parcel in) {
-            return new Daily(in);
+        public Hourly createFromParcel(Parcel in) {
+            return new Hourly(in);
         }
 
         @Override
-        public Daily[] newArray(int size) {
-            return new Daily[size];
+        public Hourly[] newArray(int size) {
+            return new Hourly[size];
         }
     };
 
-    public long getDailyId() {
-        return dailyId;
+    public long getHourlyId() {
+        return hourlyId;
     }
 
-    public void setDailyId(long dailyId) {
-        this.dailyId = dailyId;
+    public void setHourlyId(long hourlyId) {
+        this.hourlyId = hourlyId;
     }
 
     public String getSummary() {
@@ -78,11 +78,11 @@ public class Daily implements Parcelable {
         this.icon = icon;
     }
 
-    public List<DailyData> getData() {
+    public List<HourlyData> getData() {
         return data;
     }
 
-    public void setData(List<DailyData> data) {
+    public void setData(List<HourlyData> data) {
         this.data = data;
     }
 }

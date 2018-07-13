@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
+import com.example.lesson13.data.daos.WeatherDao;
 import com.example.lesson13.data.databases.WeatherDatabase;
 import com.example.lesson13.data.entities.Weather;
 import com.example.lesson13.domain.helpers.RetrofitHelper;
@@ -24,6 +25,7 @@ public class WeatherService extends IntentService {
 
         RetrofitHelper retrofitHelper = new RetrofitHelper();
         WeatherDatabase weatherDatabase = WeatherDatabase.getInstance(getBaseContext());
+        WeatherDao dao = weatherDatabase.weatherDao();
 
         try {
             Response<Weather> result = retrofitHelper.getService().getWeekWeather().execute();
@@ -33,8 +35,9 @@ public class WeatherService extends IntentService {
             sendBroadcast(broadcastIntent);
 
             weatherDatabase.clearAllTables();
-            weatherDatabase.weatherDao().addWeather(weather);
-            weatherDatabase.weatherDao().addData(weather.getDaily().getData());
+            dao.addWeather(weather);
+            dao.addDailyData(weather.getDaily().getData());
+            dao.addHourlyData(weather.getHourly().getData());
         } catch (IOException e) {
             e.printStackTrace();
         }

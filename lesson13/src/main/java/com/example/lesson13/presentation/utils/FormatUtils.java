@@ -1,7 +1,6 @@
 package com.example.lesson13.presentation.utils;
 
 import com.example.lesson13.R;
-import com.example.lesson13.data.entities.Data;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,7 +28,7 @@ public class FormatUtils {
     }
 
     public static String formatWind(double windSpeed, String formatString) {
-        double formattedWindSpeed = 1.6093 * windSpeed;
+        double formattedWindSpeed = (1.6093 * windSpeed) * 1000 / 3600;
         return String.format(Locale.getDefault(), formatString, formattedWindSpeed);
     }
 
@@ -39,27 +38,25 @@ public class FormatUtils {
     }
 
     public static String formatTemperature(double temp) {
-        if (temp > 0) {
-            return String.format("+%s\u00b0", String.valueOf((int) temp));
+        int temperature = (int) temp;
+        if (temperature > 0) {
+            return String.format("+%s\u00b0", String.valueOf(temperature));
         }
-        return String.format("%s\u00b0", String.valueOf((int) temp));
+        return String.format("%s\u00b0", String.valueOf(temperature));
     }
 
-    public static int getImageResource(Data data) {
+    public static int getImageResource(String res) {
         int resource = 0;
-        int backgroundColor = 0;
-        switch (data.getIcon()) {
+        switch (res) {
             case "clear-day": {
                 //same as clear-night
             }
             case "clear-night": {
                 resource = R.drawable.ic_clear;
-                backgroundColor = R.color.background_sun;
                 break;
             }
             case "rain": {
                 resource = R.drawable.ic_rain;
-                backgroundColor = R.color.background_rain;
                 break;
             }
             case "sleet": {
@@ -67,7 +64,6 @@ public class FormatUtils {
             }
             case "snow": {
                 resource = R.drawable.ic_snow;
-                backgroundColor = R.color.background_snow;
                 break;
             }
             case "wind": {
@@ -75,12 +71,10 @@ public class FormatUtils {
             }
             case "fog": {
                 resource = R.drawable.ic_fog;
-                backgroundColor = R.color.background_fog;
                 break;
             }
             case "cloudy": {
                 resource = R.drawable.ic_cloudy;
-                backgroundColor = R.color.background_cloud;
                 break;
             }
             case "partly-cloudy-day": {
@@ -88,17 +82,13 @@ public class FormatUtils {
             }
             case "partly-cloudy-night": {
                 resource = R.drawable.ic_light_clouds;
-                backgroundColor = R.color.background_partly_cloudy;
                 break;
             }
             default: {
                 resource = R.drawable.ic_clear;
-                backgroundColor = R.color.background_sun;
                 break;
             }
         }
-        data.setImageResource(resource);
-        data.setBackgroundColor(backgroundColor);
         return resource;
     }
 }

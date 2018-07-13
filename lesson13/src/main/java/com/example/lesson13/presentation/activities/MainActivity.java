@@ -9,6 +9,8 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,17 +21,19 @@ import android.widget.Toast;
 
 import com.example.lesson13.R;
 import com.example.lesson13.data.databases.WeatherDatabase;
-import com.example.lesson13.data.entities.Data;
+import com.example.lesson13.data.entities.DailyData;
+import com.example.lesson13.data.entities.HourlyData;
 import com.example.lesson13.data.entities.Weather;
 import com.example.lesson13.domain.web_service.WeatherService;
-import com.example.lesson13.presentation.adapter.WeatherAdapter;
+import com.example.lesson13.presentation.adapter.DailyAdapter;
+import com.example.lesson13.presentation.adapter.HourlyAdapter;
 import com.example.lesson13.presentation.mvp.MainContract;
 import com.example.lesson13.presentation.mvp.MainModel;
 import com.example.lesson13.presentation.mvp.Presenter;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements WeatherAdapter.MyCallback,
+public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCallback,
         MainContract.View {
 
     public static final String BROADCAST_ACTION = "com.example.lesson13.WeatherReceiver";
@@ -41,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
     private TextView descriptionView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    private WeatherAdapter adapter;
+    private DailyAdapter dailyAdapter;
+    private HourlyAdapter hourlyAdapter;
 
     private WeatherReceiver receiver;
     private IntentFilter intentFilter;
@@ -58,9 +63,16 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
         descriptionView = findViewById(R.id.main_description);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        adapter = new WeatherAdapter(new ArrayList<Data>(), this);
-        recyclerView.setAdapter(adapter);
+        RecyclerView dailyRecyclerView = findViewById(R.id.daily_recycler_view);
+        dailyAdapter = new DailyAdapter(new ArrayList<DailyData>(), this);
+        dailyRecyclerView.setAdapter(dailyAdapter);
+        DividerItemDecoration dividerItemDecoration= new DividerItemDecoration(this,
+                LinearLayoutManager.VERTICAL);
+        dailyRecyclerView.addItemDecoration(dividerItemDecoration);
+
+        RecyclerView hourlyRecyclerView = findViewById(R.id.hourly_recycler_view);
+        hourlyAdapter = new HourlyAdapter(new ArrayList<HourlyData>());
+        hourlyRecyclerView.setAdapter(hourlyAdapter);
 
         receiver = new WeatherReceiver();
         intentFilter = new IntentFilter(BROADCAST_ACTION);
@@ -110,9 +122,9 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
     }
 
     @Override
-    public void onItemClick(Data data) {
+    public void onItemClick(DailyData dailyData) {
         Intent intent = new Intent(this, DetailsActivity.class)
-                .putExtra(WEATHER_DATA, data);
+                .putExtra(WEATHER_DATA, dailyData);
         startActivity(intent);
     }
 
@@ -141,8 +153,12 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
     public void showWeather(Weather weather) {
         titleView.setText(weather.getTimezone());
         descriptionView.setText(weather.getDaily().getSummary());
-        adapter.setWeather(weather.getDaily().getData());
-        adapter.notifyDataSetChanged();
+
+        dailyAdapter.setDailyData(weather.getDaily().getData());
+        dailyAdapter.notifyDataSetChanged();
+
+        hourlyAdapter.setHourlyData(weather.getHourly().getData());
+        hourlyAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -172,8 +188,12 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.My
             Weather weather = intent.getParcelableExtra(WEATHER);
             titleView.setText(weather.getTimezone());
             descriptionView.setText(weather.getDaily().getSummary());
-            adapter.setWeather(weather.getDaily().getData());
-            adapter.notifyDataSetChanged();
+
+            dailyAdapter.setDailyData(weather.getDaily().getData());
+            dailyAdapter.notifyDataSetChanged();
+
+            hourlyAdapter.setHourlyData(weather.getHourly().getData());
+            hourlyAdapter.notifyDataSetChanged();
         }
     }
 }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Lesson 12</string>
-    <string name="change_lesson_9_data">Change lesson 9 data</string>
-    <string name="change_lesson_10_data">Change lesson 10 data</string>
+    <string name="change_lesson_9_data">Change lesson 9 dailyData</string>
+    <string name="change_lesson_10_data">Change lesson 10 dailyData</string>
     <string name="use_id">Use id?</string>
     <string name="enter_id">Enter id</string>
     <string name="select_operation_type">Select operation type</string>

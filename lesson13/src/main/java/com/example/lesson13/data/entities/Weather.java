@@ -16,6 +16,8 @@ public class Weather implements Parcelable {
     private String timezone;
     @Embedded
     private Daily daily;
+    @Embedded
+    private Hourly hourly;
 
     public Weather() {
     }
@@ -25,6 +27,7 @@ public class Weather implements Parcelable {
         longitude = in.readDouble();
         timezone = in.readString();
         daily = in.readParcelable(Daily.class.getClassLoader());
+        hourly = in.readParcelable(Hourly.class.getClassLoader());
     }
 
     @Override
@@ -33,6 +36,7 @@ public class Weather implements Parcelable {
         dest.writeDouble(longitude);
         dest.writeString(timezone);
         dest.writeParcelable(daily, flags);
+        dest.writeParcelable(hourly, flags);
     }
 
     @Override
@@ -90,5 +94,13 @@ public class Weather implements Parcelable {
 
     public void setDaily(Daily daily) {
         this.daily = daily;
+    }
+
+    public Hourly getHourly() {
+        return hourly;
+    }
+
+    public void setHourly(Hourly hourly) {
+        this.hourly = hourly;
     }
 }

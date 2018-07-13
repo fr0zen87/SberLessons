@@ -3,7 +3,7 @@ package com.example.lesson13.presentation.mvp;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.example.lesson13.data.entities.Data;
+import com.example.lesson13.data.entities.DailyData;
 import com.example.lesson13.data.entities.Weather;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public class Presenter implements MainContract.Presenter {
 
     private void getWeather() {
         Weather weather = mModel.getWeather();
-        List<Data> data = weather.getDaily().getData();
+        List<DailyData> data = weather.getDaily().getData();
         if (data != null && !data.isEmpty()) {
             mView.hideProgressBar();
             mView.showWeather(weather);

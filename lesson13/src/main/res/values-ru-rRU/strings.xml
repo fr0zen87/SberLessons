@@ -7,7 +7,7 @@
     <string name="pressure">Давление</string>
     <string name="humidity">Влажность воздуха</string>
     <string name="pressure_value">%d мм рт.ст.</string>
-    <string name="wind_speed_value">%.1f км/ч</string>
+    <string name="wind_speed_value">%.1f м/с</string>
     <string name="refresh">Обновить</string>
     <string name="settings">Настройки</string>
 </resources>

@@ -6,7 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 @Entity
-public class Data implements Parcelable {
+public class DailyData implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
@@ -20,13 +20,11 @@ public class Data implements Parcelable {
     private double humidity;
     private double pressure;
     private double windSpeed;
-    private int imageResource;
-    private int backgroundColor;
 
-    public Data() {
+    public DailyData() {
     }
 
-    protected Data(Parcel in) {
+    protected DailyData(Parcel in) {
         time = in.readLong();
         summary = in.readString();
         icon = in.readString();
@@ -37,8 +35,6 @@ public class Data implements Parcelable {
         humidity = in.readDouble();
         pressure = in.readDouble();
         windSpeed = in.readDouble();
-        imageResource = in.readInt();
-        backgroundColor = in.readInt();
     }
 
     @Override
@@ -53,8 +49,6 @@ public class Data implements Parcelable {
         dest.writeDouble(humidity);
         dest.writeDouble(pressure);
         dest.writeDouble(windSpeed);
-        dest.writeInt(imageResource);
-        dest.writeInt(backgroundColor);
     }
 
     @Override
@@ -62,15 +56,15 @@ public class Data implements Parcelable {
         return 0;
     }
 
-    public static final Creator<Data> CREATOR = new Creator<Data>() {
+    public static final Creator<DailyData> CREATOR = new Creator<DailyData>() {
         @Override
-        public Data createFromParcel(Parcel in) {
-            return new Data(in);
+        public DailyData createFromParcel(Parcel in) {
+            return new DailyData(in);
         }
 
         @Override
-        public Data[] newArray(int size) {
-            return new Data[size];
+        public DailyData[] newArray(int size) {
+            return new DailyData[size];
         }
     };
 
@@ -160,21 +154,5 @@ public class Data implements Parcelable {
 
     public void setWindSpeed(double windSpeed) {
         this.windSpeed = windSpeed;
-    }
-
-    public int getImageResource() {
-        return imageResource;
-    }
-
-    public void setImageResource(int imageResource) {
-        this.imageResource = imageResource;
-    }
-
-    public int getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    public void setBackgroundColor(int backgroundColor) {
-        this.backgroundColor = backgroundColor;
     }
 }

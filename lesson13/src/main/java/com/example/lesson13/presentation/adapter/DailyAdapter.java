@@ -9,48 +9,48 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lesson13.R;
-import com.example.lesson13.data.entities.Data;
+import com.example.lesson13.data.entities.DailyData;
 import com.example.lesson13.presentation.utils.FormatUtils;
 
 import java.util.List;
 
-public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
+public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> {
 
-    private List<Data> weather;
+    private List<DailyData> dailyData;
     private MyCallback myCallback;
 
-    public WeatherAdapter(List<Data> weather, MyCallback myCallback) {
-        this.weather = weather;
+    public DailyAdapter(List<DailyData> dailyData, MyCallback myCallback) {
+        this.dailyData = dailyData;
         this.myCallback = myCallback;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, viewGroup, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.daily_list_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
-        final Data data = weather.get(i);
-        viewHolder.weatherIconView.setImageResource(FormatUtils.getImageResource(data));
-        viewHolder.dateView.setText(FormatUtils.titleDateFormatter(data.getTime()));
-        viewHolder.weatherDescriptionView.setText(data.getSummary());
-        viewHolder.temperatureLowView.setText(FormatUtils.formatTemperature(data.getTemperatureLow()));
-        viewHolder.temperatureHighView.setText(FormatUtils.formatTemperature(data.getTemperatureHigh()));
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
+        final DailyData dailyData = this.dailyData.get(position);
+        viewHolder.weatherIconView.setImageResource(FormatUtils.getImageResource(dailyData.getIcon()));
+        viewHolder.dateView.setText(FormatUtils.titleDateFormatter(dailyData.getTime()));
+        viewHolder.weatherDescriptionView.setText(dailyData.getSummary());
+        viewHolder.temperatureLowView.setText(FormatUtils.formatTemperature(dailyData.getTemperatureLow()));
+        viewHolder.temperatureHighView.setText(FormatUtils.formatTemperature(dailyData.getTemperatureHigh()));
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myCallback.onItemClick(data);
+                myCallback.onItemClick(dailyData);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return weather.size();
+        return dailyData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -71,15 +71,15 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         }
     }
 
-    public List<Data> getWeather() {
-        return weather;
+    public List<DailyData> getDailyData() {
+        return dailyData;
     }
 
-    public void setWeather(List<Data> weather) {
-        this.weather = weather;
+    public void setDailyData(List<DailyData> dailyData) {
+        this.dailyData = dailyData;
     }
 
     public interface MyCallback {
-        void onItemClick(Data data);
+        void onItemClick(DailyData dailyData);
     }
 }

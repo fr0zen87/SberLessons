@@ -7,10 +7,11 @@ import android.content.Context;
 
 import com.example.lesson13.data.daos.WeatherDao;
 import com.example.lesson13.data.entities.Daily;
-import com.example.lesson13.data.entities.Data;
+import com.example.lesson13.data.entities.DailyData;
+import com.example.lesson13.data.entities.HourlyData;
 import com.example.lesson13.data.entities.Weather;
 
-@Database(entities = {Weather.class, Daily.class, Data.class}, version = 1, exportSchema = false)
+@Database(entities = {Weather.class, Daily.class, DailyData.class, HourlyData.class}, version = 1, exportSchema = false)
 public abstract class WeatherDatabase extends RoomDatabase {
 
     private static WeatherDatabase instance;

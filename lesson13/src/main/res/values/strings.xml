@@ -6,7 +6,7 @@
     <string name="humidity">Humidity</string>
     <string name="pressure">Pressure</string>
     <string name="pressure_value">%d mm Hg</string>
-    <string name="wind_speed_value">%.1f km/h</string>
+    <string name="wind_speed_value">%.1f m/s</string>
     <string name="refresh">Refresh</string>
     <string name="settings">Settings</string>
 </resources>

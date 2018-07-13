@@ -4,7 +4,8 @@ import android.os.AsyncTask;
 
 import com.example.lesson13.data.daos.WeatherDao;
 import com.example.lesson13.data.databases.WeatherDatabase;
-import com.example.lesson13.data.entities.Data;
+import com.example.lesson13.data.entities.DailyData;
+import com.example.lesson13.data.entities.HourlyData;
 import com.example.lesson13.data.entities.Weather;
 
 import java.util.Date;
@@ -40,9 +41,16 @@ public class MainModel implements MainContract.Model {
         @Override
         protected Weather doInBackground(Void... voids) {
             Weather weather = dao.getWeather();
-            long time = (new Date().getTime() - 86400000) / 1000;
-            List<Data> data = dao.getData(time);
-            weather.getDaily().setData(data);
+
+            long time = new Date().getTime();
+            long dailyTime = (time - 86400000) / 1000;
+            long hourlyTime = (time - 3600000) / 1000;
+
+            List<DailyData> dailyData = dao.getDailyData(dailyTime);
+            List<HourlyData> hourlyData = dao.getHourlyData(hourlyTime);
+
+            weather.getDaily().setData(dailyData);
+            weather.getHourly().setData(hourlyData);
             return weather;
         }
     }

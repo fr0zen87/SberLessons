@@ -18,12 +18,12 @@ public class FormatUtils {
     }
 
     public static String formatHumidity(double humidity) {
-        int formattedHumidity = (int)(humidity * 100);
+        int formattedHumidity = (int) (humidity * 100);
         return String.format(Locale.getDefault(), "%d%%", formattedHumidity);
     }
 
     public static String formatPressure(double pressure, String formatString) {
-        int formattedPressure = (int)((pressure * 7.501) / 10);
+        int formattedPressure = (int) ((pressure * 7.501) / 10);
         return String.format(Locale.getDefault(), formatString, formattedPressure);
     }
 

@@ -33,12 +33,12 @@ import com.example.lesson13.presentation.mvp.Presenter;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCallback,
-        MainContract.View {
+public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCallback, MainContract.View {
 
     public static final String BROADCAST_ACTION = "com.example.lesson13.WeatherReceiver";
     public static final String WEATHER = "weather";
     public static final String WEATHER_DATA = "weather data";
+    public static final int REQUEST_CODE = 1;
 
     private ProgressBar progressBar;
     private TextView titleView;
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
     private IntentFilter intentFilter;
 
     private Presenter presenter;
+    private boolean isChanged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
         RecyclerView dailyRecyclerView = findViewById(R.id.daily_recycler_view);
         dailyAdapter = new DailyAdapter(new ArrayList<DailyData>(), this);
         dailyRecyclerView.setAdapter(dailyAdapter);
-        DividerItemDecoration dividerItemDecoration= new DividerItemDecoration(this,
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
                 LinearLayoutManager.VERTICAL);
         dailyRecyclerView.addItemDecoration(dividerItemDecoration);
 
@@ -102,11 +103,21 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
         switch (item.getItemId()) {
             case R.id.settings: {
                 Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE);
                 break;
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            isChanged = data.getBooleanExtra(SettingsActivity.IS_PREFS_CHANGED, false);
+            if (isChanged) {
+                initData();
+            }
+        }
     }
 
     @Override
@@ -135,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
 
     @Override
     public void showProgressBar() {
-        if(swipeRefreshLayout.isRefreshing()) {
+        if (swipeRefreshLayout.isRefreshing()) {
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
@@ -143,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
 
     @Override
     public void hideProgressBar() {
-        if(swipeRefreshLayout.isRefreshing()) {
+        if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }
         progressBar.setVisibility(View.GONE);
@@ -163,7 +174,8 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
 
     @Override
     public void startService() {
-        Intent intent = new Intent(this, WeatherService.class);
+        Intent intent = new Intent(this, WeatherService.class)
+                .putExtra(SettingsActivity.IS_PREFS_CHANGED, isChanged);
         startService(intent);
     }
 

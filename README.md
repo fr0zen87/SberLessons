@@ -32,7 +32,8 @@
 [Weather app](https://github.com/fr0zen87/SberLessons/tree/master/lesson13)  
 :small_orange_diamond: **Meet 16**, *date: 13.07.2018* - Unit Test (JUnit, robolectric, mockito).
 [Tests](https://github.com/fr0zen87/SberLessons/tree/master/lesson16)  
-:small_blue_diamond: **Meet 17**, *date: 16.07.2018* - Espresso.  
+:small_blue_diamond: **Meet 17**, *date: 16.07.2018* - Espresso.
+[Ui tests](https://github.com/fr0zen87/SberLessons/tree/master/lesson17)  
 :small_orange_diamond: **Meet 18**, *date: 18.07.2018* - Загрузка изображений (Picasso, Glide, Fresco).  
 :small_blue_diamond: **Meet 19**, *date: 20.07.2018* - Dagger 2.  
 :small_orange_diamond: **Meet 20**, *date: 23.07.2018* - RxJava 2.  

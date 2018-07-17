@@ -13,7 +13,7 @@ import org.junit.Test;
 public class MainActivityTest {
 
     @Rule
-    ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     public void onEditTextChanged() {

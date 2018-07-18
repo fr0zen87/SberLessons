@@ -105,6 +105,10 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
                 startActivityForResult(intent, REQUEST_CODE);
                 break;
             }
+            //нажатие кнопки возврата к родительской активити
+            case android.R.id.home: {
+
+            }
         }
         return super.onOptionsItemSelected(item);
     }

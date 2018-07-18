@@ -8,7 +8,7 @@ import com.example.lesson13.data.entities.Weather;
 
 import java.util.List;
 
-public class Presenter implements MainContract.Presenter {
+public class Presenter implements MainContract.Presenter, MainModel.WeatherCallback {
 
     private MainContract.View mView;
     private MainContract.Model mModel;
@@ -16,6 +16,7 @@ public class Presenter implements MainContract.Presenter {
     public Presenter(MainContract.View view, MainContract.Model model) {
         mView = view;
         mModel = model;
+        mModel.onAttach(this);
     }
 
     @Override
@@ -38,7 +39,11 @@ public class Presenter implements MainContract.Presenter {
     }
 
     private void getWeather() {
-        Weather weather = mModel.getWeather();
+        mModel.getWeather();
+    }
+
+    @Override
+    public void onWeatherGet(Weather weather) {
         List<DailyData> data = weather.getDaily().getData();
         if (data != null && !data.isEmpty()) {
             mView.hideProgressBar();

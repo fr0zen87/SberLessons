@@ -7,7 +7,8 @@ import com.example.lesson13.data.entities.Weather;
 public interface MainContract {
 
     interface Model {
-        Weather getWeather();
+        void getWeather();
+        void onAttach(MainModel.WeatherCallback weatherCallback);
     }
 
     interface Presenter {

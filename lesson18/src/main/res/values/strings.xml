@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Lesson 18</string>
+
+    <string name="url_download">Downloaded via HttpURLConnection</string>
+    <string name="picasso_download">Downloaded via Picasso</string>
+    <string name="glide_download">Downloaded via Glide</string>
+    <string name="fresco_download">Downloaded via Fresco</string>
 </resources>

@@ -3,6 +3,7 @@ package com.example.lesson18;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -64,7 +65,7 @@ public class MyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     URL url = new URL(uris.get(position));
                     UrlConnectionViewHolder holder = (UrlConnectionViewHolder) viewHolder;
                     holder.textView.setText(R.string.url_download);
-                    holder.imageView.setImageBitmap(getImage(url));
+                    new DownloadAsyncTask(holder.imageView).execute(url);
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
@@ -76,7 +77,8 @@ public class MyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 holder.textView.setText(R.string.picasso_download);
                 Picasso.get()
                         .load(uri)
-                        .resize(50, 50)
+                        .centerInside()
+                        .resize(150, 150)
                         .into(holder.imageView);
                 break;
             }
@@ -86,7 +88,8 @@ public class MyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 holder.textView.setText(R.string.glide_download);
                 GlideApp.with(holder.itemView)
                         .load(uri)
-                        .override(60,60)
+                        .fitCenter()
+                        .override(160,160)
                         .into(holder.imageView);
                 break;
             }
@@ -157,23 +160,39 @@ public class MyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    private Bitmap getImage(URL url) {
-        HttpURLConnection connection = null;
-        try {
-            connection = (HttpURLConnection) url.openConnection();
-            connection.connect();
-            int responseCode = connection.getResponseCode();
-            if (responseCode == 200) {
-                return BitmapFactory.decodeStream(connection.getInputStream());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
-            }
+    private class DownloadAsyncTask extends AsyncTask<URL, Void,Bitmap> {
+
+        private ImageView imageView;
+
+        public DownloadAsyncTask(ImageView imageView) {
+            this.imageView = imageView;
         }
-        return null;
+
+        @Override
+        protected Bitmap doInBackground(URL... urls) {
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) urls[0].openConnection();
+                connection.connect();
+                int responseCode = connection.getResponseCode();
+                if (responseCode == 200) {
+                    return BitmapFactory.decodeStream(connection.getInputStream());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            imageView.setImageBitmap(bitmap);
+        }
     }
 }

@@ -36,7 +36,8 @@
 [Ui tests](https://github.com/fr0zen87/SberLessons/tree/master/lesson17)  
 :small_orange_diamond: **Meet 18**, *date: 18.07.2018* - Загрузка изображений (Picasso, Glide, Fresco).
 [code](https://github.com/fr0zen87/SberLessons/tree/master/lesson18)  
-:small_blue_diamond: **Meet 19**, *date: 20.07.2018* - Dagger 2.  
+:small_blue_diamond: **Meet 19**, *date: 20.07.2018* - Dagger 2.
+[Weather app](https://github.com/fr0zen87/SberLessons/tree/master/lesson13)  
 :small_orange_diamond: **Meet 20**, *date: 23.07.2018* - RxJava 2.  
 :small_blue_diamond: **Meet 21**, *date: 25.07.2018* - Material Design.  
 :small_orange_diamond: **Meet 22**, *date: 27.07.2018* - Custom view.  

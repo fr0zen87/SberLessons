@@ -12,7 +12,7 @@ import com.example.lesson13.data.daos.WeatherDao;
 import com.example.lesson13.data.databases.WeatherDatabase;
 import com.example.lesson13.data.entities.HourlyData;
 import com.example.lesson13.data.entities.Weather;
-import com.example.lesson13.domain.helpers.RetrofitHelper;
+import com.example.lesson13.domain.retrofit.RetrofitHelper;
 import com.example.lesson13.presentation.activities.MainActivity;
 import com.example.lesson13.presentation.activities.SettingsActivity;
 
@@ -76,7 +76,7 @@ public class WeatherService extends IntentService {
         List<Double> result = new ArrayList<>();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String location = preferences.getString("location", "Moscow");
+        String location = preferences.getString("location", "Москва");
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         List<Address> addresses = geocoder.getFromLocationName(location, 1);

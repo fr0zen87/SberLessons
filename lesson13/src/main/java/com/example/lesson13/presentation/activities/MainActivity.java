@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
     private IntentFilter intentFilter;
 
     private Presenter presenter;
+    private Weather weather;
     private boolean isChanged = false;
 
     @Override
@@ -62,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
 
         initViews();
         initBroadcastReceiver();
-        initData();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -70,6 +70,24 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
                 initData();
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(WEATHER, weather);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        weather = savedInstanceState.getParcelable(WEATHER);
+        if (weather != null) {
+            hideProgressBar();
+            setWeatherToAdapter(weather);
+        } else {
+            initData();
+        }
     }
 
     @Override
@@ -108,6 +126,9 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
     protected void onResume() {
         super.onResume();
         registerReceiver(receiver, intentFilter);
+        if (weather == null) {
+            initData();
+        }
     }
 
     @Override
@@ -192,6 +213,19 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
         presenter.initData(cm);
     }
 
+    private void setWeatherToAdapter(Weather weather) {
+        hideProgressBar();
+
+        titleView.setText(weather.getTimezone());
+        descriptionView.setText(weather.getDaily().getSummary());
+
+        dailyAdapter.setDailyData(weather.getDaily().getData());
+        dailyAdapter.notifyDataSetChanged();
+
+        hourlyAdapter.setHourlyData(weather.getHourly().getData());
+        hourlyAdapter.notifyDataSetChanged();
+    }
+
     private class WeatherReceiver extends BroadcastReceiver {
 
         @Override
@@ -199,15 +233,8 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
 
             hideProgressBar();
 
-            Weather weather = intent.getParcelableExtra(WEATHER);
-            titleView.setText(weather.getTimezone());
-            descriptionView.setText(weather.getDaily().getSummary());
-
-            dailyAdapter.setDailyData(weather.getDaily().getData());
-            dailyAdapter.notifyDataSetChanged();
-
-            hourlyAdapter.setHourlyData(weather.getHourly().getData());
-            hourlyAdapter.notifyDataSetChanged();
+            weather = intent.getParcelableExtra(WEATHER);
+            setWeatherToAdapter(weather);
         }
     }
 }

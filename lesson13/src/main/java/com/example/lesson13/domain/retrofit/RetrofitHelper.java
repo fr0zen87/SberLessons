@@ -1,4 +1,4 @@
-package com.example.lesson13.domain.helpers;
+package com.example.lesson13.domain.retrofit;
 
 import com.example.lesson13.domain.web_service.WeatherWebService;
 

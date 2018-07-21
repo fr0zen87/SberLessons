@@ -19,15 +19,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lesson13.R;
-import com.example.lesson13.data.databases.WeatherDatabase;
 import com.example.lesson13.data.entities.DailyData;
 import com.example.lesson13.data.entities.HourlyData;
 import com.example.lesson13.data.entities.Weather;
 import com.example.lesson13.domain.web_service.WeatherService;
 import com.example.lesson13.presentation.adapter.DailyAdapter;
 import com.example.lesson13.presentation.adapter.HourlyAdapter;
+import com.example.lesson13.presentation.dagger.DaggerAppComponent;
+import com.example.lesson13.presentation.dagger.MainModule;
 import com.example.lesson13.presentation.mvp.MainContract;
-import com.example.lesson13.presentation.mvp.MainModel;
 import com.example.lesson13.presentation.mvp.Presenter;
 
 import java.util.ArrayList;
@@ -58,29 +58,10 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        progressBar = findViewById(R.id.progress_bar);
-        titleView = findViewById(R.id.main_title);
-        descriptionView = findViewById(R.id.main_description);
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
+        presenter = DaggerAppComponent.builder().mainModule(new MainModule(this)).build().getPresenter();
 
-        RecyclerView dailyRecyclerView = findViewById(R.id.daily_recycler_view);
-        dailyAdapter = new DailyAdapter(new ArrayList<DailyData>(), this);
-        dailyRecyclerView.setAdapter(dailyAdapter);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
-                LinearLayoutManager.VERTICAL);
-        dailyRecyclerView.addItemDecoration(dividerItemDecoration);
-
-        RecyclerView hourlyRecyclerView = findViewById(R.id.hourly_recycler_view);
-        hourlyAdapter = new HourlyAdapter(new ArrayList<HourlyData>());
-        hourlyRecyclerView.setAdapter(hourlyAdapter);
-
-        receiver = new WeatherReceiver();
-        intentFilter = new IntentFilter(BROADCAST_ACTION);
-
-        WeatherDatabase weatherDatabase = WeatherDatabase.getInstance(this);
-        MainModel mainModel = new MainModel(weatherDatabase);
-        presenter = new Presenter(this, mainModel);
-
+        initViews();
+        initBroadcastReceiver();
         initData();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -181,6 +162,29 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
                 .putExtra(SettingsActivity.IS_PREFS_CHANGED, isChanged);
         isChanged = false;
         startService(intent);
+    }
+
+    private void initViews() {
+        progressBar = findViewById(R.id.progress_bar);
+        titleView = findViewById(R.id.main_title);
+        descriptionView = findViewById(R.id.main_description);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
+
+        RecyclerView dailyRecyclerView = findViewById(R.id.daily_recycler_view);
+        dailyAdapter = new DailyAdapter(new ArrayList<DailyData>(), this);
+        dailyRecyclerView.setAdapter(dailyAdapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
+                LinearLayoutManager.VERTICAL);
+        dailyRecyclerView.addItemDecoration(dividerItemDecoration);
+
+        RecyclerView hourlyRecyclerView = findViewById(R.id.hourly_recycler_view);
+        hourlyAdapter = new HourlyAdapter(new ArrayList<HourlyData>());
+        hourlyRecyclerView.setAdapter(hourlyAdapter);
+    }
+
+    private void initBroadcastReceiver() {
+        receiver = new WeatherReceiver();
+        intentFilter = new IntentFilter(BROADCAST_ACTION);
     }
 
     private void initData() {

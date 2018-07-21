@@ -8,11 +8,14 @@ import com.example.lesson13.data.entities.Weather;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class Presenter implements MainContract.Presenter, MainModel.WeatherCallback {
 
     private MainContract.View mView;
     private MainContract.Model mModel;
 
+    @Inject
     public Presenter(MainContract.View view, MainContract.Model model) {
         mView = view;
         mModel = model;

@@ -11,11 +11,14 @@ import com.example.lesson13.data.entities.Weather;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class MainModel implements MainContract.Model {
 
     private WeatherDatabase weatherDatabase;
     private WeatherCallback weatherCallback;
 
+    @Inject
     public MainModel(WeatherDatabase weatherDatabase) {
         this.weatherDatabase = weatherDatabase;
     }

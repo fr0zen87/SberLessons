@@ -4,6 +4,7 @@
     <EditTextPreference
         android:defaultValue="Moscow"
         android:icon="@drawable/baseline_location_searching_black_48"
+        android:inputType="textCapWords"
         android:key="location"
         android:selectAllOnFocus="true"
         android:singleLine="true"

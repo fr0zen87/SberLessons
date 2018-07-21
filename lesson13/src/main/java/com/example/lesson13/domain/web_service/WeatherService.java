@@ -28,6 +28,8 @@ public class WeatherService extends IntentService {
     private static final String LATITUDE = "latitude";
     private static final String LONGITUDE = "longitude";
 
+    private String loc;
+
     public WeatherService() {
         super("WeatherService");
     }
@@ -56,6 +58,7 @@ public class WeatherService extends IntentService {
                     .getWeekWeather(coordinates.get(0), coordinates.get(1))
                     .execute();
             Weather weather = result.body();
+            weather.setTimezone(loc);
             List<HourlyData> data = weather.getHourly().getData().subList(0, 25);
             weather.getHourly().setData(data);
             Intent broadcastIntent = new Intent(MainActivity.BROADCAST_ACTION)
@@ -79,13 +82,18 @@ public class WeatherService extends IntentService {
         List<Address> addresses = geocoder.getFromLocationName(location, 1);
 
         if (addresses != null && !addresses.isEmpty()) {
+            String subLoc = addresses.get(0).getSubAdminArea() != null ?
+                    addresses.get(0).getSubAdminArea() : location;
             double latitude = addresses.get(0).getLatitude();
             double longitude = addresses.get(0).getLongitude();
+
+            loc = subLoc;
 
             result.add(latitude);
             result.add(longitude);
 
             SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("location", subLoc);
             editor.putFloat(LATITUDE, (float) latitude);
             editor.putFloat(LONGITUDE, (float) longitude);
             editor.apply();
@@ -99,6 +107,7 @@ public class WeatherService extends IntentService {
         List<Double> result = new ArrayList<>();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        loc = preferences.getString("location", "Москва");
         result.add((double) preferences.getFloat(LATITUDE, 55.75222f));
         result.add((double) preferences.getFloat(LONGITUDE, 37.61556f));
 

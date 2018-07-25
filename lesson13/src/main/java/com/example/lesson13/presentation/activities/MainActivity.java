@@ -29,6 +29,7 @@ import com.example.lesson13.presentation.dagger.DaggerAppComponent;
 import com.example.lesson13.presentation.dagger.MainModule;
 import com.example.lesson13.presentation.mvp.MainContract;
 import com.example.lesson13.presentation.mvp.Presenter;
+import com.example.lesson13.presentation.utils.FormatUtils;
 
 import java.util.ArrayList;
 
@@ -216,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
     private void setWeatherToAdapter(Weather weather) {
         hideProgressBar();
 
-        titleView.setText(weather.getTimezone());
+        titleView.setText(FormatUtils.formatTitle(weather.getTimezone()));
         descriptionView.setText(weather.getDaily().getSummary());
 
         dailyAdapter.setDailyData(weather.getDaily().getData());

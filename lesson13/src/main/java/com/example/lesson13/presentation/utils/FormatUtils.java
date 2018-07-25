@@ -12,6 +12,16 @@ public class FormatUtils {
 
     }
 
+    public  static String formatTitle(String title) {
+        StringBuilder result = new StringBuilder();
+        String[] splitTitle = title.split(" ");
+        for (String s : splitTitle) {
+            char start = s.charAt(0);
+            result.append(String.valueOf(start).toUpperCase()).append(s.substring(1)).append(" ");
+        }
+        return result.toString().trim();
+    }
+
     public static String titleDateFormatter(long date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, d MMMM yyyy", Locale.getDefault());
         return simpleDateFormat.format(new Date(date * 1000));

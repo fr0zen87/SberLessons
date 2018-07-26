@@ -3,6 +3,7 @@ package com.example.lesson13.domain.retrofit;
 import com.example.lesson13.domain.web_service.WeatherWebService;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitHelper {
@@ -12,6 +13,7 @@ public class RetrofitHelper {
     public WeatherWebService getService() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

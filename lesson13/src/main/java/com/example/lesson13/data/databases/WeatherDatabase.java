@@ -27,9 +27,5 @@ public abstract class WeatherDatabase extends RoomDatabase {
         return instance;
     }
 
-    public static void destroyInstance() {
-        instance = null;
-    }
-
     public abstract WeatherDao weatherDao();
 }

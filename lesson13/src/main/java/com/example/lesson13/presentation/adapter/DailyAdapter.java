@@ -40,12 +40,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         viewHolder.temperatureLowView.setText(FormatUtils.formatTemperature(dailyData.getTemperatureLow()));
         viewHolder.temperatureHighView.setText(FormatUtils.formatTemperature(dailyData.getTemperatureHigh()));
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myCallback.onItemClick(dailyData);
-            }
-        });
+        viewHolder.itemView.setOnClickListener(v -> myCallback.onItemClick(dailyData));
     }
 
     @Override

@@ -22,8 +22,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".domain.web_service.WeatherService" />
-
         <activity
             android:name=".presentation.activities.DetailsActivity"
             android:parentActivityName=".presentation.activities.MainActivity" />

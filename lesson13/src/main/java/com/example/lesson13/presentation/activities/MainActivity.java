@@ -1,9 +1,7 @@
 package com.example.lesson13.presentation.activities;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,26 +14,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.lesson13.R;
 import com.example.lesson13.data.entities.DailyData;
-import com.example.lesson13.data.entities.HourlyData;
 import com.example.lesson13.data.entities.Weather;
-import com.example.lesson13.domain.web_service.WeatherService;
 import com.example.lesson13.presentation.adapter.DailyAdapter;
 import com.example.lesson13.presentation.adapter.HourlyAdapter;
 import com.example.lesson13.presentation.dagger.DaggerAppComponent;
 import com.example.lesson13.presentation.dagger.MainModule;
 import com.example.lesson13.presentation.mvp.MainContract;
 import com.example.lesson13.presentation.mvp.Presenter;
-import com.example.lesson13.presentation.utils.FormatUtils;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCallback, MainContract.View {
 
-    public static final String BROADCAST_ACTION = "com.example.lesson13.WeatherReceiver";
     public static final String WEATHER = "weather";
     public static final String WEATHER_DATA = "weather data";
     public static final int REQUEST_CODE = 1;
@@ -48,29 +41,21 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
     private DailyAdapter dailyAdapter;
     private HourlyAdapter hourlyAdapter;
 
-    private WeatherReceiver receiver;
-    private IntentFilter intentFilter;
-
     private Presenter presenter;
     private Weather weather;
-    private boolean isChanged = false;
+    private boolean isSettingsChanged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        presenter = DaggerAppComponent.builder().mainModule(new MainModule(this)).build().getPresenter();
+        presenter = DaggerAppComponent.builder()
+                .mainModule(new MainModule(this)).build().getPresenter();
 
         initViews();
-        initBroadcastReceiver();
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initData();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(this::initData);
     }
 
     @Override
@@ -83,11 +68,10 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         weather = savedInstanceState.getParcelable(WEATHER);
-        if (weather != null) {
-            hideProgressBar();
-            setWeatherToAdapter(weather);
-        } else {
+        if (weather == null) {
             initData();
+        } else {
+            showWeather(weather);
         }
     }
 
@@ -105,10 +89,6 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
                 startActivityForResult(intent, REQUEST_CODE);
                 break;
             }
-            //нажатие кнопки возврата к родительской активити
-            case android.R.id.home: {
-
-            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -116,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            isChanged = data.getBooleanExtra(SettingsActivity.IS_PREFS_CHANGED, false);
-            if (isChanged) {
+            isSettingsChanged = data.getBooleanExtra(SettingsActivity.IS_PREFS_CHANGED, false);
+            if (isSettingsChanged) {
                 initData();
             }
         }
@@ -126,16 +106,9 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(receiver, intentFilter);
         if (weather == null) {
             initData();
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(receiver);
     }
 
     @Override
@@ -143,11 +116,6 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
         Intent intent = new Intent(this, DetailsActivity.class)
                 .putExtra(WEATHER_DATA, dailyData);
         startActivity(intent);
-    }
-
-    @Override
-    public void showEmptyMessage() {
-        Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -168,6 +136,8 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
 
     @Override
     public void showWeather(Weather weather) {
+        this.weather = weather;
+
         titleView.setText(weather.getTimezone());
         descriptionView.setText(weather.getDaily().getSummary());
 
@@ -179,11 +149,8 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
     }
 
     @Override
-    public void startService() {
-        Intent intent = new Intent(this, WeatherService.class)
-                .putExtra(SettingsActivity.IS_PREFS_CHANGED, isChanged);
-        isChanged = false;
-        startService(intent);
+    public void restoreSettingsCheck() {
+        isSettingsChanged = false;
     }
 
     private void initViews() {
@@ -193,49 +160,19 @@ public class MainActivity extends AppCompatActivity implements DailyAdapter.MyCa
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
 
         RecyclerView dailyRecyclerView = findViewById(R.id.daily_recycler_view);
-        dailyAdapter = new DailyAdapter(new ArrayList<DailyData>(), this);
+        dailyAdapter = new DailyAdapter(new ArrayList<>(), this);
         dailyRecyclerView.setAdapter(dailyAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
                 LinearLayoutManager.VERTICAL);
         dailyRecyclerView.addItemDecoration(dividerItemDecoration);
 
         RecyclerView hourlyRecyclerView = findViewById(R.id.hourly_recycler_view);
-        hourlyAdapter = new HourlyAdapter(new ArrayList<HourlyData>());
+        hourlyAdapter = new HourlyAdapter(new ArrayList<>());
         hourlyRecyclerView.setAdapter(hourlyAdapter);
-    }
-
-    private void initBroadcastReceiver() {
-        receiver = new WeatherReceiver();
-        intentFilter = new IntentFilter(BROADCAST_ACTION);
     }
 
     private void initData() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        presenter.initData(cm);
-    }
-
-    private void setWeatherToAdapter(Weather weather) {
-        hideProgressBar();
-
-        titleView.setText(FormatUtils.formatTitle(weather.getTimezone()));
-        descriptionView.setText(weather.getDaily().getSummary());
-
-        dailyAdapter.setDailyData(weather.getDaily().getData());
-        dailyAdapter.notifyDataSetChanged();
-
-        hourlyAdapter.setHourlyData(weather.getHourly().getData());
-        hourlyAdapter.notifyDataSetChanged();
-    }
-
-    private class WeatherReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            hideProgressBar();
-
-            weather = intent.getParcelableExtra(WEATHER);
-            setWeatherToAdapter(weather);
-        }
+        presenter.initData(cm, isSettingsChanged);
     }
 }

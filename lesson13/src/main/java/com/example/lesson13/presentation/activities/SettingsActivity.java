@@ -25,12 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
                 .commit();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        preferences.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                isChanged = true;
-            }
-        });
+        preferences.registerOnSharedPreferenceChangeListener((sharedPreferences, key) -> isChanged = true);
     }
 
     @Override

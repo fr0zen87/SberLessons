@@ -45,13 +45,13 @@ public class MainModule {
 
     @Provides
     @Singleton
-    MainModel provideMainModel() {
-        return new MainModel(provideWeatherDatabase(), provideGeocoder(), provideSharedPreferences());
+    MainModel provideMainModel(WeatherDatabase weatherDatabase, Geocoder geocoder, SharedPreferences sharedPreferences) {
+        return new MainModel(weatherDatabase, geocoder, sharedPreferences);
     }
 
     @Provides
     @Singleton
-    Presenter providePresenter() {
-        return new Presenter(mainActivity, provideMainModel());
+    Presenter providePresenter(MainModel mainModel) {
+        return new Presenter(mainActivity, mainModel);
     }
 }

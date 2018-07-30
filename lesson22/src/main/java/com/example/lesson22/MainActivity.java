@@ -1,7 +1,6 @@
 package com.example.lesson22;
 
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -16,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
     TextView textView;
     RectView rectView;
-    Rect rect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,30 +23,34 @@ public class MainActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.textView);
         rectView = findViewById(R.id.rectView);
-        rect = rectView.rect;
 
         rectView.setOnTouchListener(new Listener());
     }
 
     class Listener implements View.OnTouchListener {
+        float x;
+        float y;
 
         @Override
         public boolean onTouch(View view, MotionEvent event) {
-            float x = view.getX();
-            float y = view.getY();
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN: {
                     int color = Color.rgb(new Random().nextInt(256),
                             new Random().nextInt(256),
                             new Random().nextInt(256));
                     rectView.paint.setColor(color);
+                    x = view.getX() - event.getRawX();
+                    y = view.getY() - event.getRawY();
                     break;
                 }
                 case MotionEvent.ACTION_MOVE: {
-                    float dx = x + event.getX();
-                    float dy = y + event.getY();
-                    rectView.setX(dx);
-                    rectView.setY(dy);
+                    float dx = event.getRawX() + x;
+                    float dy = event.getRawY() + y;
+                    view.animate()
+                            .x(dx)
+                            .y(dy)
+                            .setDuration(0)
+                            .start();
                     textView.setText(String.format(pattern, dx, dy));
                     break;
                 }

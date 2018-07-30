@@ -46,11 +46,8 @@ public class MainActivity extends AppCompatActivity {
                 case MotionEvent.ACTION_MOVE: {
                     float dx = event.getRawX() + x;
                     float dy = event.getRawY() + y;
-                    view.animate()
-                            .x(dx)
-                            .y(dy)
-                            .setDuration(0)
-                            .start();
+                    view.setX(dx);
+                    view.setY(dy);
                     textView.setText(String.format(pattern, dx, dy));
                     break;
                 }

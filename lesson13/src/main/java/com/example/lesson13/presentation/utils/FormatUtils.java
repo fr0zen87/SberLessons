@@ -23,7 +23,7 @@ public class FormatUtils {
     }
 
     public static String titleDateFormatter(long date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, d MMMM yyyy", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, d MMMM yyyy", Locale.getDefault());
         return simpleDateFormat.format(new Date(date * 1000));
     }
 

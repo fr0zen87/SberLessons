@@ -43,5 +43,9 @@
 :small_blue_diamond: **Meet 21**, *date: 25.07.2018* - Material Design. - Wohoo! No tasks here:relaxed:  
 :small_orange_diamond: **Meet 22**, *date: 27.07.2018* - Custom view.
 [code](https://github.com/fr0zen87/SberLessons/tree/master/lesson22)  
-:small_blue_diamond: **Meet 23**, *date: 30.07.2018* - Custom groupView.  
-:small_orange_diamond: **Meet 24**, *date: 01.08.2018* - Анимация.  
+:small_blue_diamond: **Meet 23**, *date: 30.07.2018* - Custom viewGroup.
+[code](https://github.com/fr0zen87/SberLessons/tree/master/lesson23)  
+:small_orange_diamond: **Meet 24**, *date: 01.08.2018* - Анимация.
+[code](https://github.com/fr0zen87/SberLessons/tree/master/lesson24)  
+:small_blue_diamond: **Meet 25**, *date: 03.08.2018* - ViewPager.  
+:small_orange_diamond: **Meet 26**, *date: 06.08.2018* - MVI.

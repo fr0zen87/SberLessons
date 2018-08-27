@@ -47,7 +47,8 @@
 [code](https://github.com/fr0zen87/SberLessons/tree/master/lesson23)  
 :small_orange_diamond: **Meet 24**, *date: 01.08.2018* - Анимация.
 [code](https://github.com/fr0zen87/SberLessons/tree/master/lesson24)  
-:small_blue_diamond: **Meet 25**, *date: 03.08.2018* - ViewPager.  
+:small_blue_diamond: **Meet 25**, *date: 03.08.2018* - ViewPager.
+[Gallery app](https://github.com/fr0zen87/SberLessons/tree/master/lesson25)  
 :small_orange_diamond: **Meet 26**, *date: 06.08.2018* - MVI.  
 :small_blue_diamond: **Meet 27**, *date: 08.08.2018* - Процессы в android.  
 :small_orange_diamond: **Meet 28**, *date: 10.08.2018* - Arch. components: WorkManager.  
